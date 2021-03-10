@@ -17,6 +17,11 @@ export class AppComponent {
   searchArray: any = [];
   selectedSearchObj: any;
   openSearchFields(columnObj: any) {
+   
+    this.searchArray = [];
+    this.selname = "";
+    this.selfieldType = "";
+
     this.selectedSearchObj = columnObj;
     this.searchArray = columnObj.searchType;
   }
@@ -55,7 +60,19 @@ export class AppComponent {
       searchType: [
         {
           searchType: 'single',
-          searchFieldType: 'input'
+          searchFieldType: 'number'
+        },
+        {
+          searchType: 'greterthan',
+          searchFieldType: 'number'
+        },
+        {
+          searchType: 'lessthan',
+          searchFieldType: 'number'
+        },
+        {
+          searchType: 'between',
+          searchFieldType: 'number'
         }
       ]
     },
@@ -178,6 +195,10 @@ export class AppComponent {
 
 
   columnOpearation(index: any) {
+    this.searchArray = [];
+    this.selname = "";
+    this.selfieldType = "";
+
     if (this.initColumns[index].show) {
       this.initColumns[index].show = false;
       this.displayedColumns.splice(index, 1);
@@ -250,6 +271,19 @@ export class AppComponent {
   }
 
 
+  resetTable() {
+
+    this.dataSource.data = ELEMENT_DATA;
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+
+    this.searchArray = [];
+    this.selname = "";
+    this.selfieldType = "";
+  }
+
+
 }
 
 const ELEMENT_DATA: any = [
@@ -266,10 +300,10 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "1",
     "supplier": "TATA",
     "category": 1,
-    "criticality": 2
+    "criticality": 1
   },
   {
     "pkey": 2,
@@ -284,16 +318,16 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "1",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 1
   }, {
     "pkey": 3,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "JCB small",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -301,16 +335,16 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "1",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 1
   }, {
     "pkey": 4,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "JCB heavy",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -318,16 +352,16 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "3",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 1
   }, {
     "pkey": 5,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "caterpillar small",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -335,28 +369,28 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "3",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 3
   }
   , {
     "pkey": 6,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
-    "make": "2018",
+    "machineName": "caterpillar mediun",
+    "make": "2017",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "3",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 3
   }, {
     "pkey": 7,
     "assetUid": "ast128766",
@@ -370,16 +404,16 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "3",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 3
   }, {
     "pkey": 8,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "crane S",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -387,16 +421,16 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "4",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 3
   }, {
     "pkey": 9,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "crane M",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -404,16 +438,16 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "4",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 4
   }, {
     "pkey": 10,
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "crane L",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -421,10 +455,10 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "4",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 4
   }, {
     "pkey": 11,
     "assetUid": "ast128766",
@@ -441,7 +475,7 @@ const ELEMENT_DATA: any = [
     "powerRating": "2",
     "supplier": "TATA",
     "category": 2,
-    "criticality": 2
+    "criticality": 4
   }, {
     "pkey": 12,
     "assetUid": "ast128766",
@@ -464,7 +498,7 @@ const ELEMENT_DATA: any = [
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "small jeep",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -481,7 +515,7 @@ const ELEMENT_DATA: any = [
     "assetUid": "ast128766",
     "customerId": 12345,
     "description": "hello",
-    "machineName": "JCB",
+    "machineName": "lorry",
     "make": "2018",
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
@@ -489,7 +523,7 @@ const ELEMENT_DATA: any = [
     "warrantyExpiry": "2021-12-25T10:30:50",
     "isActive": true,
     "location": "india",
-    "powerRating": "2",
+    "powerRating": "1",
     "supplier": "TATA",
     "category": 2,
     "criticality": 2
