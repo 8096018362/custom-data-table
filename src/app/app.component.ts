@@ -17,7 +17,7 @@ export class AppComponent {
   searchArray: any = [];
   selectedSearchObj: any;
   openSearchFields(columnObj: any) {
-   
+
     this.searchArray = [];
     this.selname = "";
     this.selfieldType = "";
@@ -36,7 +36,7 @@ export class AppComponent {
       show: true,
       searchType: [
         {
-          searchType: 'single',
+          searchType: 'wholeSearch',
           searchFieldType: 'number'
         },
         {
@@ -59,7 +59,7 @@ export class AppComponent {
       show: false,
       searchType: [
         {
-          searchType: 'single',
+          searchType: 'wholeSearch',
           searchFieldType: 'number'
         },
         {
@@ -82,8 +82,20 @@ export class AppComponent {
       show: true,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'text'
+        },
+        {
+          searchType: 'greterthan',
+          searchFieldType: 'text'
+        },
+        {
+          searchType: 'lessthan',
+          searchFieldType: 'text'
+        },
+        {
+          searchType: 'between',
+          searchFieldType: 'text'
         }
       ]
     },
@@ -92,6 +104,18 @@ export class AppComponent {
       defaultColumn: false,
       show: false,
       searchType: [
+        {
+          searchType: 'wholeSearch',
+          searchFieldType: 'date'
+        },
+        {
+          searchType: 'greterthan',
+          searchFieldType: 'date'
+        },
+        {
+          searchType: 'lessthan',
+          searchFieldType: 'date'
+        },
         {
           searchType: 'between',
           searchFieldType: 'date'
@@ -104,8 +128,8 @@ export class AppComponent {
       show: true,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'number'
         }
       ]
     },
@@ -115,8 +139,8 @@ export class AppComponent {
       show: true,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'text'
         }
       ]
     },
@@ -126,8 +150,8 @@ export class AppComponent {
       show: false,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'text'
         }
       ]
     },
@@ -137,8 +161,8 @@ export class AppComponent {
       show: false,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'text'
         }
       ]
     },
@@ -148,8 +172,8 @@ export class AppComponent {
       show: false,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'text'
         }
       ]
     },
@@ -159,8 +183,31 @@ export class AppComponent {
       show: false,
       searchType: [
         {
-          searchType: 'single',
-          searchFieldType: 'input'
+          searchType: 'wholeSearch',
+          searchFieldType: 'text'
+        }
+      ]
+    },
+    {
+      name: 'installedDate',
+      defaultColumn: false,
+      show: false,
+      searchType: [
+        {
+          searchType: 'wholeSearch',
+          searchFieldType: 'date'
+        },
+        {
+          searchType: 'greterthan',
+          searchFieldType: 'date'
+        },
+        {
+          searchType: 'lessthan',
+          searchFieldType: 'date'
+        },
+        {
+          searchType: 'between',
+          searchFieldType: 'date'
         }
       ]
     }
@@ -225,7 +272,7 @@ export class AppComponent {
 
     switch (searchType) {
 
-      case "single":
+      case "wholeSearch":
         dataSource.map((itm: any) => {
           if (itm[mainKey] == this.searchInputValue) {
             this.finalArray.push(itm)
@@ -308,7 +355,7 @@ const ELEMENT_DATA: any = [
   {
     "pkey": 2,
     "assetUid": "ast128766",
-    "customerId": 12345,
+    "customerId": 12346,
     "description": "hello",
     "machineName": "JCB",
     "make": "2018",
@@ -324,8 +371,8 @@ const ELEMENT_DATA: any = [
     "criticality": 1
   }, {
     "pkey": 3,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128767",
+    "customerId": 12347,
     "description": "hello",
     "machineName": "JCB small",
     "make": "2018",
@@ -341,7 +388,7 @@ const ELEMENT_DATA: any = [
     "criticality": 1
   }, {
     "pkey": 4,
-    "assetUid": "ast128766",
+    "assetUid": "ast128768",
     "customerId": 12345,
     "description": "hello",
     "machineName": "JCB heavy",
@@ -358,8 +405,8 @@ const ELEMENT_DATA: any = [
     "criticality": 1
   }, {
     "pkey": 5,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128769",
+    "customerId": 12347,
     "description": "hello",
     "machineName": "caterpillar small",
     "make": "2018",
@@ -376,8 +423,8 @@ const ELEMENT_DATA: any = [
   }
   , {
     "pkey": 6,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128770",
+    "customerId": 12348,
     "description": "hello",
     "machineName": "caterpillar mediun",
     "make": "2017",
@@ -393,8 +440,8 @@ const ELEMENT_DATA: any = [
     "criticality": 3
   }, {
     "pkey": 7,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128771",
+    "customerId": 12350,
     "description": "hello",
     "machineName": "JCB",
     "make": "2018",
@@ -410,8 +457,8 @@ const ELEMENT_DATA: any = [
     "criticality": 3
   }, {
     "pkey": 8,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128772",
+    "customerId": 12351,
     "description": "hello",
     "machineName": "crane S",
     "make": "2018",
@@ -427,8 +474,8 @@ const ELEMENT_DATA: any = [
     "criticality": 3
   }, {
     "pkey": 9,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128773",
+    "customerId": 12352,
     "description": "hello",
     "machineName": "crane M",
     "make": "2018",
@@ -444,8 +491,8 @@ const ELEMENT_DATA: any = [
     "criticality": 4
   }, {
     "pkey": 10,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128774",
+    "customerId": 12353,
     "description": "hello",
     "machineName": "crane L",
     "make": "2018",
@@ -461,8 +508,8 @@ const ELEMENT_DATA: any = [
     "criticality": 4
   }, {
     "pkey": 11,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128775",
+    "customerId": 12354,
     "description": "hello",
     "machineName": "JCB",
     "make": "2018",
@@ -478,8 +525,8 @@ const ELEMENT_DATA: any = [
     "criticality": 4
   }, {
     "pkey": 12,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128776",
+    "customerId": 12355,
     "description": "hello",
     "machineName": "JCB",
     "make": "2018",
@@ -495,8 +542,8 @@ const ELEMENT_DATA: any = [
     "criticality": 2
   }, {
     "pkey": 13,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128777",
+    "customerId": 12356,
     "description": "hello",
     "machineName": "small jeep",
     "make": "2018",
@@ -512,8 +559,8 @@ const ELEMENT_DATA: any = [
     "criticality": 2
   }, {
     "pkey": 14,
-    "assetUid": "ast128766",
-    "customerId": 12345,
+    "assetUid": "ast128778",
+    "customerId": 12357,
     "description": "hello",
     "machineName": "lorry",
     "make": "2018",

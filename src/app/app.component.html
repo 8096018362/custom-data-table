@@ -27,7 +27,7 @@
 
 
     <mat-form-field appearance="fill" *ngIf="searchArray.length">
-      <mat-label>Choose Option</mat-label>
+      <mat-label>{{selectedSearchObj?.name}} Search Types</mat-label>
       <mat-select>
         <mat-option *ngFor="let search of searchArray" [value]="search.searchType" (click)="selectedSearchType(search)">
           {{search.searchType}}
@@ -38,20 +38,20 @@
 
     <div *ngIf="selname&&searchArray.length">
 
-      <div *ngIf="selname=='single'&&selfieldType">
+      <div *ngIf="selname=='wholeSearch'&&selfieldType!=='date'">
         <mat-form-field class="example-form-field">
           <mat-label>{{selname}}</mat-label>
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
         </mat-form-field>
       </div>
 
-      <div *ngIf="selname=='greterthan'&&selfieldType">
+      <div *ngIf="selname=='greterthan'&&selfieldType!=='date'">
         <mat-form-field class="example-form-field">
           <mat-label>{{selname}} ></mat-label>
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
         </mat-form-field>
       </div>
-      <div *ngIf="selname=='lessthan'&&selfieldType">
+      <div *ngIf="selname=='lessthan'&&selfieldType!=='date'">
         <mat-form-field class="example-form-field">
           <mat-label>
             < {{selname}} </mat-label>
@@ -59,21 +59,50 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="selname=='between'&&selfieldType">
+      <div *ngIf="selname=='between'&&selfieldType!=='date'">
 
         <mat-form-field class="example-form-field">
-          <mat-label>{{selname}} ></mat-label>
+          <mat-label>From</mat-label>
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputFromValue">
         </mat-form-field>
 
         <mat-form-field class="example-form-field">
-          <mat-label>{{selname}} ></mat-label>
+          <mat-label>To</mat-label>
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputToValue">
         </mat-form-field>
+      </div>
 
+      <!--Date-->
 
+      <div *ngIf="selname=='wholeSearch'&&selfieldType=='date'">
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
 
-        <!-- <mat-form-field appearance="fill">
+      <div *ngIf="selname=='greterthan'&&selfieldType=='date'">
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div *ngIf="selname=='lessthan'&&selfieldType=='date'">
+        <mat-form-field appearance="fill">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div *ngIf="selname=='between'&&selfieldType=='date'">
+
+        <mat-form-field appearance="fill">
           <mat-label>From Date</mat-label>
           <input matInput [matDatepicker]="picker">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -85,8 +114,9 @@
           <input matInput [matDatepicker]="picker1">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
-        </mat-form-field> -->
+        </mat-form-field>
       </div>
+
       <button mat-raised-button color="primary" (click)="fetchDataByFiltered()">Submit</button>
       <button mat-raised-button color="warning" (click)="resetTable()">Reset</button>
     </div>
