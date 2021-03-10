@@ -51,6 +51,13 @@
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
         </mat-form-field>
       </div>
+      <div *ngIf="selname=='lessthan'&&selfieldType">
+        <mat-form-field class="example-form-field">
+          <mat-label>
+            < {{selname}} </mat-label>
+              <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
+        </mat-form-field>
+      </div>
 
       <div *ngIf="selname=='between'&&selfieldType">
 

@@ -39,6 +39,10 @@ export class AppComponent {
           searchFieldType: 'number'
         },
         {
+          searchType: 'lessthan',
+          searchFieldType: 'number'
+        },
+        {
           searchType: 'between',
           searchFieldType: 'number'
         }
@@ -198,37 +202,52 @@ export class AppComponent {
 
     let dataSource: any = ELEMENT_DATA;
 
-    if (searchType == 'single') {
-      dataSource.map((itm: any) => {
-        if (itm[mainKey] == this.searchInputValue) {
-          this.finalArray.push(itm)
-        }
-      });
-    } else if (searchType == 'greterthan') {
-      dataSource.map((itm: any) => {
-        if (itm[mainKey] < this.searchInputValue) {
-          this.finalArray.push(itm)
-        }
-      });
-    } else if (searchType == 'between') {
+    switch (searchType) {
 
-      dataSource.map((itm: any) => {
-        if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
-          this.finalArray.push(itm)
-        }
-      });
+      case "single":
+        dataSource.map((itm: any) => {
+          if (itm[mainKey] == this.searchInputValue) {
+            this.finalArray.push(itm)
+          }
+        });
+        this.dataSet();
+        break;
+      case 'greterthan':
+        dataSource.map((itm: any) => {
+          if (itm[mainKey] > this.searchInputValue) {
+            this.finalArray.push(itm)
+          }
+        });
+        this.dataSet();
+        break;
+      case 'lessthan':
+        dataSource.map((itm: any) => {
+          if (itm[mainKey] < this.searchInputValue) {
+            this.finalArray.push(itm)
+          }
+        });
+        this.dataSet();
+        break;
+      case 'between':
+        dataSource.map((itm: any) => {
+          if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
+            this.finalArray.push(itm)
+          }
+        });
+        this.dataSet();
+        break;
     }
 
+  }
+  dataSet() {
     setTimeout(() => {
       this.dataSource = new MatTableDataSource<any>(this.finalArray);
       setTimeout(() => {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
-      }, 1000);
+      }, 500);
     }, 2000);
-
   }
-
 
 
 }
@@ -321,7 +340,7 @@ const ELEMENT_DATA: any = [
     "category": 2,
     "criticality": 2
   }
-  ,  {
+  , {
     "pkey": 6,
     "assetUid": "ast128766",
     "customerId": 12345,
