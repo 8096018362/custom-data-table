@@ -2,6 +2,8 @@ import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
+import * as moment from 'moment';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -101,8 +103,8 @@ export class AppComponent {
     },
     {
       name: 'warrantyExpiry',
-      defaultColumn: false,
-      show: false,
+      defaultColumn: true,
+      show: true,
       searchType: [
         {
           searchType: 'wholeSearch',
@@ -260,51 +262,100 @@ export class AppComponent {
     this.selfieldType = sObj.searchFieldType;
     this.selname = sObj.searchType;
   }
-
+  wholeDate: any;
+  startDate: any;
+  endDate: any;
 
   finalArray: any = [];
   public fetchDataByFiltered() {
+
     this.finalArray = [];
     let mainKey = this.selectedSearchObj.name;
     let searchType = this.selname;
 
     let dataSource: any = ELEMENT_DATA;
 
+
     switch (searchType) {
 
       case "wholeSearch":
         dataSource.map((itm: any) => {
-          if (itm[mainKey] == this.searchInputValue) {
+
+          console.log(moment(itm[mainKey]).format('YYYY-MM-DD') == moment(this.wholeDate).format('YYYY-MM-DD'))
+
+          if (moment(itm[mainKey]).format('YYYY-MM-DD') == moment(this.wholeDate).format('YYYY-MM-DD')) {
             this.finalArray.push(itm)
           }
         });
         this.dataSet();
         break;
+
       case 'greterthan':
         dataSource.map((itm: any) => {
-          if (itm[mainKey] > this.searchInputValue) {
+          if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.wholeDate).format('YYYY-MM-DD')) {
             this.finalArray.push(itm)
           }
         });
         this.dataSet();
         break;
+
       case 'lessthan':
         dataSource.map((itm: any) => {
-          if (itm[mainKey] < this.searchInputValue) {
+          if (moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.wholeDate).format('YYYY-MM-DD')) {
             this.finalArray.push(itm)
           }
         });
         this.dataSet();
         break;
+
       case 'between':
         dataSource.map((itm: any) => {
-          if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
+          if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.startDate).format('YYYY-MM-DD') && moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.endDate).format('YYYY-MM-DD')) {
             this.finalArray.push(itm)
           }
         });
         this.dataSet();
         break;
+
     }
+
+
+
+    // switch (searchType) {
+
+    //   case "wholeSearch":
+    //     dataSource.map((itm: any) => {
+    //       if (itm[mainKey] == this.searchInputValue) {
+    //         this.finalArray.push(itm)
+    //       }
+    //     });
+    //     this.dataSet();
+    //     break;
+    //   case 'greterthan':
+    //     dataSource.map((itm: any) => {
+    //       if (itm[mainKey] > this.searchInputValue) {
+    //         this.finalArray.push(itm)
+    //       }
+    //     });
+    //     this.dataSet();
+    //     break;
+    //   case 'lessthan':
+    //     dataSource.map((itm: any) => {
+    //       if (itm[mainKey] < this.searchInputValue) {
+    //         this.finalArray.push(itm)
+    //       }
+    //     });
+    //     this.dataSet();
+    //     break;
+    //   case 'between':
+    //     dataSource.map((itm: any) => {
+    //       if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
+    //         this.finalArray.push(itm)
+    //       }
+    //     });
+    //     this.dataSet();
+    //     break;
+    // }
 
   }
   dataSet() {
@@ -344,7 +395,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:10",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-14T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "1",
@@ -362,7 +413,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-13T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "1",
@@ -379,7 +430,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-12T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "1",
@@ -396,7 +447,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-11T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "3",
@@ -413,7 +464,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-10T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "3",
@@ -431,7 +482,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-09T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "3",
@@ -448,7 +499,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-08T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "3",
@@ -465,7 +516,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-07T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "4",
@@ -482,7 +533,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-06T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "4",
@@ -499,7 +550,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-05T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "4",
@@ -516,7 +567,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-04T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "2",
@@ -533,7 +584,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-03T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "2",
@@ -550,7 +601,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-02T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "2",
@@ -567,7 +618,7 @@ const ELEMENT_DATA: any = [
     "serialNumber": "546yhgt9uy2",
     "modelNumber": "h343h8743h09j",
     "installedDate": "2019-06-02T16:59:51",
-    "warrantyExpiry": "2021-12-25T10:30:50",
+    "warrantyExpiry": "2021-03-01T10:30:50",
     "isActive": true,
     "location": "india",
     "powerRating": "1",
