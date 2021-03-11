@@ -38,29 +38,14 @@
 
     <div *ngIf="selname&&searchArray.length">
 
-      <div *ngIf="selname=='wholeSearch'&&selfieldType!=='date'">
+      <div *ngIf="selname!='between'&&selfieldType!=='date'">
         <mat-form-field class="example-form-field">
           <mat-label>{{selname}}</mat-label>
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
         </mat-form-field>
       </div>
 
-      <div *ngIf="selname=='greterthan'&&selfieldType!=='date'">
-        <mat-form-field class="example-form-field">
-          <mat-label>{{selname}} ></mat-label>
-          <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
-        </mat-form-field>
-      </div>
-      <div *ngIf="selname=='lessthan'&&selfieldType!=='date'">
-        <mat-form-field class="example-form-field">
-          <mat-label>
-            < {{selname}} </mat-label>
-              <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
-        </mat-form-field>
-      </div>
-
       <div *ngIf="selname=='between'&&selfieldType!=='date'">
-
         <mat-form-field class="example-form-field">
           <mat-label>From</mat-label>
           <input matInput [type]="selfieldType" [(ngModel)]="searchInputFromValue">
@@ -74,7 +59,7 @@
 
       <!--Date-->
 
-      <div *ngIf="selname=='wholeSearch'&&selfieldType=='date'">
+      <div *ngIf="selname!='between'&&selfieldType=='date'">
         <mat-form-field appearance="fill">
           <mat-label>Date</mat-label>
           <input matInput [matDatepicker]="picker" [(ngModel)]="wholeDate">
@@ -83,25 +68,8 @@
         </mat-form-field>
       </div>
 
-      <div *ngIf="selname=='greterthan'&&selfieldType=='date'">
-        <mat-form-field appearance="fill">
-          <mat-label>Date</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="wholeDate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div *ngIf="selname=='lessthan'&&selfieldType=='date'">
-        <mat-form-field appearance="fill">
-          <mat-label>Date</mat-label>
-          <input matInput [matDatepicker]="picker" [(ngModel)]="wholeDate">
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
-      </div>
 
       <div *ngIf="selname=='between'&&selfieldType=='date'">
-
         <mat-form-field appearance="fill">
           <mat-label>From Date</mat-label>
           <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
