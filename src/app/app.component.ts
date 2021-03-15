@@ -169,14 +169,14 @@ export class AppComponent {
   columnOpearation(index: any) {
     this.selname = "";
     this.selfieldType = "";
-
     if (this.initColumns[index].show) {
+      // this.initColumns[index].show = false;
+      // var index = this.displayedColumns.findIndex((item: any) => item.name === this.initColumns[index].name);
+      // this.displayedColumns.splice(index, 1);
 
 
       this.initColumns[index].show = false;
       this.displayedColumns.splice(index, 1);
-
-
 
     } else {
       this.initColumns[index].show = true;
