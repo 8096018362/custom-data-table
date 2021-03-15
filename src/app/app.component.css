@@ -19,7 +19,7 @@ table {
    
   }
   .bbg{
-    overflow: auto;
+    border-bottom: 2px solid green;
    
   }
   .container{

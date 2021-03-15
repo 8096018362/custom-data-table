@@ -40,6 +40,8 @@ export class AppComponent {
 
   selectedSearchObj: any;
 
+  selectedColumns: any = ["pkey", "assetUid"];
+
   openSearchFields(columnObj: any) {
     this.selname = "";
     this.selectedSearchObj = columnObj;
@@ -49,6 +51,12 @@ export class AppComponent {
   public searchInputValue: any = '';
   public campaignOne: any = {};
   public campaignTwo: any = {};
+
+
+  public sampleResponse: any = {
+    displayHeader: [],
+    data: []
+  }
 
   initColumns = [
     {
@@ -73,19 +81,20 @@ export class AppComponent {
       searchFieldType: 'date'
     },
     {
-      displayName: 'Criticality',
-      name: 'criticality',
-      defaultColumn: false,
-      show: false,
-      searchFieldType: 'number'
-    },
-    {
       displayName: 'Asset Uid',
       name: 'assetUid',
       defaultColumn: true,
       show: true,
       searchFieldType: 'text'
     },
+    {
+      displayName: 'Criticality',
+      name: 'criticality',
+      defaultColumn: false,
+      show: false,
+      searchFieldType: 'number'
+    },
+
     {
       displayName: 'Warranty Expiry',
       name: 'warrantyExpiry',
@@ -162,8 +171,13 @@ export class AppComponent {
     this.selfieldType = "";
 
     if (this.initColumns[index].show) {
+
+
       this.initColumns[index].show = false;
       this.displayedColumns.splice(index, 1);
+
+
+
     } else {
       this.initColumns[index].show = true;
       this.displayedColumns.push(this.initColumns[index].name)
