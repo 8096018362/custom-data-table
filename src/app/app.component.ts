@@ -17,15 +17,34 @@ export class AppComponent {
   selfieldType: any = '';
   title = 'table-angular';
   searchArray: any = [];
+  searchArrayType1: any = [
+    {
+      searchType: 'wholeSearch'
+    },
+    {
+      searchType: 'greterthan'
+    },
+    {
+      searchType: 'lessthan'
+    },
+    {
+      searchType: 'between'
+    }
+  ];
+
+  searchArrayType2: any = [
+    {
+      searchType: 'wholeSearch'
+    }
+  ];
+
   selectedSearchObj: any;
+
   openSearchFields(columnObj: any) {
-
-    this.searchArray = [];
     this.selname = "";
-    this.selfieldType = "";
-
     this.selectedSearchObj = columnObj;
-    this.searchArray = columnObj.searchType;
+    this.selfieldType = columnObj.searchFieldType;
+    this.searchArray = columnObj.searchFieldType === 'text' ? this.searchArrayType2 : this.searchArrayType1
   }
   public searchInputValue: any = '';
   public campaignOne: any = {};
@@ -33,187 +52,82 @@ export class AppComponent {
 
   initColumns = [
     {
+      displayName: 'Pkey',
       name: 'pkey',
       defaultColumn: true,
       show: true,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'number'
-        },
-        {
-          searchType: 'greterthan',
-          searchFieldType: 'number'
-        },
-        {
-          searchType: 'lessthan',
-          searchFieldType: 'number'
-        },
-        {
-          searchType: 'between',
-          searchFieldType: 'number'
-        }
-      ]
+      searchFieldType: 'number'
     },
     {
-      name: 'criticality',
-      defaultColumn: false,
-      show: false,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'number'
-        },
-        {
-          searchType: 'greterthan',
-          searchFieldType: 'number'
-        },
-        {
-          searchType: 'lessthan',
-          searchFieldType: 'number'
-        },
-        {
-          searchType: 'between',
-          searchFieldType: 'number'
-        }
-      ]
-    },
-    {
-      name: 'assetUid',
-      defaultColumn: true,
-      show: true,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'text'
-        },
-        {
-          searchType: 'greterthan',
-          searchFieldType: 'text'
-        },
-        {
-          searchType: 'lessthan',
-          searchFieldType: 'text'
-        },
-        {
-          searchType: 'between',
-          searchFieldType: 'text'
-        }
-      ]
-    },
-    {
-      name: 'warrantyExpiry',
-      defaultColumn: true,
-      show: true,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'date'
-        },
-        {
-          searchType: 'greterthan',
-          searchFieldType: 'date'
-        },
-        {
-          searchType: 'lessthan',
-          searchFieldType: 'date'
-        },
-        {
-          searchType: 'between',
-          searchFieldType: 'date'
-        }
-      ]
-    },
-    {
-      name: 'customerId',
-      defaultColumn: true,
-      show: true,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'number'
-        }
-      ]
-    },
-    {
-      name: 'description',
-      defaultColumn: true,
-      show: true,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'text'
-        }
-      ]
-    },
-    {
-      name: 'machineName',
-      defaultColumn: false,
-      show: false,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'text'
-        }
-      ]
-    },
-    {
-      name: 'make',
-      defaultColumn: false,
-      show: false,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'text'
-        }
-      ]
-    },
-    {
-      name: 'serialNumber',
-      defaultColumn: false,
-      show: false,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'text'
-        }
-      ]
-    },
-    {
+      displayName: 'Model Number',
       name: 'modelNumber',
       defaultColumn: false,
       show: false,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'text'
-        }
-      ]
+      searchFieldType: 'text'
     },
     {
+      displayName: 'Installed Date',
       name: 'installedDate',
       defaultColumn: false,
       show: false,
-      searchType: [
-        {
-          searchType: 'wholeSearch',
-          searchFieldType: 'date'
-        },
-        {
-          searchType: 'greterthan',
-          searchFieldType: 'date'
-        },
-        {
-          searchType: 'lessthan',
-          searchFieldType: 'date'
-        },
-        {
-          searchType: 'between',
-          searchFieldType: 'date'
-        }
-      ]
+      searchFieldType: 'date'
+    },
+    {
+      displayName: 'Criticality',
+      name: 'criticality',
+      defaultColumn: false,
+      show: false,
+      searchFieldType: 'number'
+    },
+    {
+      displayName: 'Asset Uid',
+      name: 'assetUid',
+      defaultColumn: true,
+      show: true,
+      searchFieldType: 'text'
+    },
+    {
+      displayName: 'Warranty Expiry',
+      name: 'warrantyExpiry',
+      defaultColumn: true,
+      show: true,
+      searchFieldType: 'date'
+    },
+    {
+      displayName: 'Customer Id',
+      name: 'customerId',
+      defaultColumn: true,
+      show: true,
+      searchFieldType: 'number'
+    },
+    {
+      displayName: 'Description',
+      name: 'description',
+      defaultColumn: true,
+      show: true,
+      searchFieldType: 'text'
+    },
+    {
+      displayName: 'Machine Name',
+      name: 'machineName',
+      defaultColumn: false,
+      show: false,
+      searchFieldType: 'text'
+    },
+    {
+      displayName: 'Make',
+      name: 'make',
+      defaultColumn: false,
+      show: false,
+      searchFieldType: 'text'
+    },
+    {
+      displayName: 'Serial Number',
+      name: 'serialNumber',
+      defaultColumn: false,
+      show: false,
+      searchFieldType: 'text'
     }
-    // "installedDate", "warrantyExpiry", "isActive", "location", "powerRating", "supplier", "category", "criticality"];
   ]
 
   displayedColumns: any = [];
@@ -244,7 +158,6 @@ export class AppComponent {
 
 
   columnOpearation(index: any) {
-    this.searchArray = [];
     this.selname = "";
     this.selfieldType = "";
 
@@ -259,7 +172,6 @@ export class AppComponent {
   }
 
   selectedSearchType(sObj: any) {
-    this.selfieldType = sObj.searchFieldType;
     this.selname = sObj.searchType;
   }
   wholeDate: any;
@@ -273,7 +185,7 @@ export class AppComponent {
     this.finalArray = [];
     let mainKey = this.selectedSearchObj.name;
     let searchType = this.selname;
-    
+
     let dataSource: any = ELEMENT_DATA;
 
     if (this.selfieldType == 'date') {
@@ -378,8 +290,6 @@ export class AppComponent {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
-
-    this.searchArray = [];
     this.selname = "";
     this.selfieldType = "";
   }

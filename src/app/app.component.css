@@ -10,14 +10,17 @@ table {
     color: black;
     padding: 10px 20px;
     text-align: center;
-    width: 90px;
+    overflow: auto;
+    width: 90%;
     
   }
   .bbr{
     border-bottom: 2px solid red;
+   
   }
   .bbg{
-    border-bottom: 2px solid green;
+    overflow: auto;
+   
   }
   .container{
     max-width: 1140px;

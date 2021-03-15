@@ -5,7 +5,7 @@
     </div>
     <mat-grid-list cols="8" rowHeight="50px">
       <mat-grid-tile *ngFor="let a of initColumns;let i=index">
-        <div class="box1" [ngClass]="a.show==true?'bbr':'bbg'" (click)="columnOpearation(i)">{{a.name}}</div>
+        <div class="box1" [ngClass]="a.show==true?'bbr':'bbg'" (click)="columnOpearation(i)">{{a.displayName}}</div>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
@@ -17,7 +17,7 @@
     </div>
     <mat-grid-list cols="8" rowHeight="50px">
       <mat-grid-tile *ngFor="let a of initColumns;let i=index">
-        <div class="box1" (click)="openSearchFields(a)">{{a.name}}</div>
+        <div class="box1" (click)="openSearchFields(a)">{{a.displayName}}</div>
       </mat-grid-tile>
     </mat-grid-list>
   </div>
@@ -26,7 +26,7 @@
   <div>
 
 
-    <mat-form-field appearance="fill" *ngIf="searchArray.length">
+    <mat-form-field appearance="fill" *ngIf="searchArray.length&&selfieldType">
       <mat-label>{{selectedSearchObj?.name}} Search Types</mat-label>
       <mat-select>
         <mat-option *ngFor="let search of searchArray" [value]="search.searchType" (click)="selectedSearchType(search)">
@@ -61,7 +61,7 @@
 
       <div *ngIf="selname!='between'&&selfieldType=='date'">
         <mat-form-field appearance="fill">
-          <mat-label>Date</mat-label>
+          <mat-label>Date(d/m/y)</mat-label>
           <input matInput [matDatepicker]="picker" [(ngModel)]="wholeDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
@@ -71,14 +71,14 @@
 
       <div *ngIf="selname=='between'&&selfieldType=='date'">
         <mat-form-field appearance="fill">
-          <mat-label>From Date</mat-label>
+          <mat-label>From Date(d/m/y)</mat-label>
           <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
         <br>
         <mat-form-field appearance="fill">
-          <mat-label>To Date</mat-label>
+          <mat-label>To Date(d/m/y)</mat-label>
           <input matInput [matDatepicker]="picker1" [(ngModel)]="endDate">
           <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
           <mat-datepicker #picker1></mat-datepicker>
