@@ -43,12 +43,14 @@ export class TableComponent {
     selectedSearchObj: any;
 
     selectedColumns: any = [];
-
+    defaultSearchType: any = '';
     openSearchFields(columnObj: any) {
         this.selname = "";
         this.selectedSearchObj = columnObj;
         this.selfieldType = columnObj.searchFieldType;
         this.searchArray = columnObj.searchFieldType === 'text' ? this.searchArrayType2 : this.searchArrayType1
+        this.defaultSearchType = "wholeSearch";
+        this.selname = "wholeSearch";
     }
     public searchInputValue: any = '';
     public campaignOne: any = {};
@@ -85,7 +87,7 @@ export class TableComponent {
     columnOpearation(index: any) {
         this.selname = "";
         this.selfieldType = "";
-        if ( this.sampleResponse.displayHeader[index].show) {
+        if (this.sampleResponse.displayHeader[index].show) {
             //  this.sampleResponse.displayHeader[index].show = false;
             // var index = this.displayedColumns.findIndex((item: any) => item.name ===  this.sampleResponse.displayHeader[index].name);
             // this.displayedColumns.splice(index, 1);
@@ -96,7 +98,7 @@ export class TableComponent {
 
         } else {
             this.sampleResponse.displayHeader[index].show = true;
-            this.displayedColumns.push( this.sampleResponse.displayHeader[index].name)
+            this.displayedColumns.push(this.sampleResponse.displayHeader[index].name)
         }
 
     }

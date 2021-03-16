@@ -26,7 +26,7 @@
         <mat-grid-tile>
             <mat-form-field appearance="fill" *ngIf="searchArray.length&&selfieldType">
                 <mat-label>{{selectedSearchObj?.name}} Search Types</mat-label>
-                <mat-select>
+                <mat-select [(ngModel)]="defaultSearchType">
                     <mat-option *ngFor="let search of searchArray" [value]="search.searchType"
                         (click)="selectedSearchType(search)">
                         {{search.searchType}}
