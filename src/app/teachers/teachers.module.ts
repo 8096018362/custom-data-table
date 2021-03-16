@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TeachersComponent } from './teachers.component';
 import { RouterModule, Routes } from '@angular/router';
+import { TableComponentModule } from '../../common/data-table/data-table.module';
 
 
 export const routes: Routes = [
@@ -15,7 +16,7 @@ export const routes: Routes = [
 
 @NgModule({
   declarations: [TeachersComponent],
-  imports: [ RouterModule.forChild(routes),
+  imports: [TableComponentModule, RouterModule.forChild(routes),
     CommonModule
   ]
 })
