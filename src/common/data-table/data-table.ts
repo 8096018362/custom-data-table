@@ -255,7 +255,14 @@ export class TableComponent {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
-        this.selname = "";
-        this.selfieldType = "";
+        // this.selname = "";
+        // this.selfieldType = "";
+
+        this.searchInputFromValue = '';
+        this.searchInputToValue = '';
+        this.searchInputValue = '';
+        this.startDate = '';
+        this.endDate = '';
+        this.wholeDate = '';
     }
 }
