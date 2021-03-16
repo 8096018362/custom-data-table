@@ -1,0 +1,144 @@
+<div class="container">
+    <div>
+        <!-- <div class="tle">
+        Show/Hide Columns
+      </div>
+      <mat-grid-list cols="8" rowHeight="50px">
+        <mat-grid-tile *ngFor="let a of initColumns;let i=index">
+          <div class="box1" [ngClass]="a.show==true?'bbr':'bbg'" (click)="columnOpearation(i)">{{a.displayName}}</div>
+        </mat-grid-tile>
+      </mat-grid-list> -->
+
+    </div>
+
+    <mat-grid-list cols="5" rowHeight="100px">
+        <mat-grid-tile>
+            <mat-form-field appearance="fill">
+                <mat-label>Show/Hide Columns</mat-label>
+                <mat-select multiple [(ngModel)]="selectedColumns">
+                    <mat-option *ngFor="let a of initColumns;let i=index" [value]="a.name">
+                        <div (click)="columnOpearation(i)">{{a.displayName}}</div>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <mat-grid-list cols="5" rowHeight="100px">
+        <mat-grid-tile>
+            <mat-form-field appearance="fill">
+                <mat-label> Filters</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let a of initColumns;let i=index" [value]="a.name">
+                        <div (click)="openSearchFields(a)">{{a.displayName}}</div>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+            <mat-form-field appearance="fill" *ngIf="searchArray.length&&selfieldType">
+                <mat-label>{{selectedSearchObj?.name}} Search Types</mat-label>
+                <mat-select>
+                    <mat-option *ngFor="let search of searchArray" [value]="search.searchType"
+                        (click)="selectedSearchType(search)">
+                        {{search.searchType}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+        <mat-grid-tile>
+
+            <div *ngIf="selname&&searchArray.length">
+
+                <div *ngIf="selname!='between'&&selfieldType!=='date'">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>{{selname}}</mat-label>
+                        <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
+                    </mat-form-field>
+                </div>
+
+                <div *ngIf="selname=='between'&&selfieldType!=='date'">
+                    <mat-form-field class="example-form-field">
+                        <mat-label>From</mat-label>
+                        <input matInput [type]="selfieldType" [(ngModel)]="searchInputFromValue">
+                    </mat-form-field>
+
+                    <mat-form-field class="example-form-field">
+                        <mat-label>To</mat-label>
+                        <input matInput [type]="selfieldType" [(ngModel)]="searchInputToValue">
+                    </mat-form-field>
+                </div>
+
+                <!--Date-->
+
+                <div *ngIf="selname!='between'&&selfieldType=='date'">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Date(d/m/y)</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="wholeDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+
+                <div *ngIf="selname=='between'&&selfieldType=='date'">
+                    <mat-form-field appearance="fill">
+                        <mat-label>From Date(d/m/y)</mat-label>
+                        <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="fill">
+                        <mat-label>To Date(d/m/y)</mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="endDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+
+            </div>
+        </mat-grid-tile>
+        <mat-grid-tile *ngIf="selname&&searchArray.length">
+            <button mat-raised-button color="primary" (click)="fetchDataByFiltered()">Submit</button>
+            <button mat-raised-button color="warning" (click)="resetTable()">Reset</button>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+    <br>
+    <!-- <div>
+      <div class="tle">
+        Filters
+      </div>
+      <mat-grid-list cols="8" rowHeight="50px">
+        <mat-grid-tile *ngFor="let a of initColumns;let i=index">
+          <div class="box1" (click)="openSearchFields(a)">{{a.displayName}}</div>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </div> -->
+
+
+
+
+    <div>
+
+
+
+
+
+    </div>
+    <br>
+    <div class="mat-elevation-z8" *ngIf="displayedColumns">
+        <table mat-table [dataSource]="dataSource" matSort>
+            <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> {{column}} </th>
+                <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+    </div>
+
+</div>
