@@ -22,13 +22,7 @@ table {
     border-bottom: 2px solid green;
    
   }
-  .container{
-    max-width: 1140px;
-    width: 100%;
-    padding: 15px;
-    margin-right: auto;
-    margin-left: auto;
-  }
+ 
   .tle{
     color: #007eff;
     font-size: 20px;

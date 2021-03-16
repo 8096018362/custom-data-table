@@ -3,14 +3,14 @@ import { TableComponent } from './data-table';
 import { MaterialModule } from '../material/material.module';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
-import { BrowserModule } from '@angular/platform-browser';
 @NgModule({
     declarations: [
         TableComponent
     ],
     imports: [
-        BrowserModule,
+        CommonModule,
         MaterialModule,
         FormsModule,
         ReactiveFormsModule

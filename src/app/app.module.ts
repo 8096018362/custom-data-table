@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableComponentModule } from '../common/data-table/data-table.module';
-
+import { CommonModule } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent
@@ -15,7 +15,7 @@ import { TableComponentModule } from '../common/data-table/data-table.module';
     TableComponentModule,
     FormsModule,
     ReactiveFormsModule,
-    BrowserModule,
+    BrowserModule, CommonModule,
     AppRoutingModule,
     BrowserAnimationsModule
   ],
