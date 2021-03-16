@@ -94,6 +94,24 @@
         </mat-grid-tile>
     </mat-grid-list>
 
+
+    <!-- <br>
+    <br><br><br><br><br><br>
+    <mat-grid-list cols="5">
+        <mat-grid-tile>
+            <mat-accordion>
+                <mat-expansion-panel *ngFor="let a of sampleResponse.displayHeader;let i=index">
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            {{a.displayName}}
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <p>This is the primary content of the panel.</p>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </mat-grid-tile>
+    </mat-grid-list> -->
+
     <br>
     <div class="mat-elevation-z8" *ngIf="displayedColumns">
         <table mat-table [dataSource]="dataSource" matSort>

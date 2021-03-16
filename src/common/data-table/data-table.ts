@@ -27,7 +27,13 @@ export class TableComponent {
             searchType: 'greterthan'
         },
         {
+            searchType: 'greterthanorequal'
+        },
+        {
             searchType: 'lessthan'
+        },
+        {
+            searchType: 'lessthanorequal'
         },
         {
             searchType: 'between'
@@ -140,10 +146,26 @@ export class TableComponent {
                     });
                     this.dataSet();
                     break;
+                case 'greterthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') >= moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
 
                 case 'lessthan':
                     dataSource.map((itm: any) => {
                         if (moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'lessthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') <= moment(this.wholeDate).format('YYYY-MM-DD')) {
                             this.finalArray.push(itm)
                         }
                     });
@@ -180,9 +202,25 @@ export class TableComponent {
                     });
                     this.dataSet();
                     break;
+                case 'greterthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] >= this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
                 case 'lessthan':
                     dataSource.map((itm: any) => {
                         if (itm[mainKey] < this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'lessthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] <= this.searchInputValue) {
                             this.finalArray.push(itm)
                         }
                     });
