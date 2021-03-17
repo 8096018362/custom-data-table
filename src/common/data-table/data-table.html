@@ -95,6 +95,51 @@
     </mat-grid-list>
 
 
+
+    <br>
+
+    <mat-form-field appearance="fill">
+        <mat-label>Multi Filters</mat-label>
+        <mat-select multiple>
+            <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name">
+                <div (click)="addMultiFields(a)">{{a.displayName}}</div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <form [formGroup]="poForm">
+        <mat-grid-list cols="5" rowHeight="100px" formArrayName="items"
+            *ngFor="let item of getControls(); let i = index">
+            <div [formGroupName]="i">
+                <mat-grid-tile>
+                    <mat-form-field appearance="fill">
+                        <mat-label> Types</mat-label>
+                        <mat-select formControlName='m_searchType'>
+                            <mat-option *ngFor="let search of searchArrayType1" [value]="search.searchType"
+                                (click)="selectedSearchType(search)">
+                                {{search.searchType}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field class="example-form-field">
+                        <mat-label>{{poForm.value.items[i].m_searchKey}}</mat-label>
+                        <input matInput formControlName='m_searchValue'>
+                    </mat-form-field>
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+        <mat-grid-list cols="5" rowHeight="100px">
+            <mat-grid-tile *ngIf="getControls().length">
+                <button mat-raised-button color="primary" (click)="fetchDataByMultiFiltered()">Submit</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+
+
+
     <!-- <br>
     <br><br><br><br><br><br>
     <mat-grid-list cols="5">

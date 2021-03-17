@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import * as moment from 'moment';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 
 @Component({
     selector: 'rmdatatable',
@@ -10,6 +11,20 @@ import * as moment from 'moment';
     styleUrls: ['./data-table.css']
 })
 export class TableComponent {
+
+
+    public poForm: FormGroup;
+
+    constructor(
+        private readonly fb: FormBuilder
+    ) {
+        this.poForm = new FormGroup({
+            'items': new FormArray([])
+        });
+        // this.onAddItem()
+    }
+
+
 
     @Input() sampleResponse: any = {};
 
@@ -88,26 +103,6 @@ export class TableComponent {
     ngOnInit() {
 
     }
-
-
-    // columnOpearation(index: any) {
-    //     this.selname = "";
-    //     this.selfieldType = "";
-    //     if (this.sampleResponse.displayHeader[index].show) {
-    //         //  this.sampleResponse.displayHeader[index].show = false;
-    //         // var index = this.displayedColumns.findIndex((item: any) => item.name ===  this.sampleResponse.displayHeader[index].name);
-    //         // this.displayedColumns.splice(index, 1);
-
-
-    //         this.sampleResponse.displayHeader[index].show = false;
-    //         this.displayedColumns.splice(index, 1);
-
-    //     } else {
-    //         this.sampleResponse.displayHeader[index].show = true;
-    //         this.displayedColumns.push(this.sampleResponse.displayHeader[index].name)
-    //     }
-
-    // }
 
     columnOpearation(index: any) {
         this.selname = "";
@@ -281,5 +276,31 @@ export class TableComponent {
         this.startDate = '';
         this.endDate = '';
         this.wholeDate = '';
+    }
+
+
+    public addForm() {
+
+    }
+
+    getControls() {
+        return (this.poForm.get('items') as FormArray).controls;
+    }
+    addMultiFields(obj: any) {
+        this.onAddItem(obj)
+    }
+
+    onAddItem(obj: any) {
+        (this.poForm.get('items') as FormArray).push(this.createItem(obj));
+    }
+    createItem(obj: any) {
+        return new FormGroup({
+            'm_searchKey': new FormControl(obj.displayName ? obj.displayName : '', Validators.required),
+            'm_searchType': new FormControl(null, Validators.required),
+            'm_searchValue': new FormControl(null, Validators.required),
+        })
+    }
+    fetchDataByMultiFiltered() {
+        console.log(this.poForm.value)
     }
 }
