@@ -90,23 +90,40 @@ export class TableComponent {
     }
 
 
+    // columnOpearation(index: any) {
+    //     this.selname = "";
+    //     this.selfieldType = "";
+    //     if (this.sampleResponse.displayHeader[index].show) {
+    //         //  this.sampleResponse.displayHeader[index].show = false;
+    //         // var index = this.displayedColumns.findIndex((item: any) => item.name ===  this.sampleResponse.displayHeader[index].name);
+    //         // this.displayedColumns.splice(index, 1);
+
+
+    //         this.sampleResponse.displayHeader[index].show = false;
+    //         this.displayedColumns.splice(index, 1);
+
+    //     } else {
+    //         this.sampleResponse.displayHeader[index].show = true;
+    //         this.displayedColumns.push(this.sampleResponse.displayHeader[index].name)
+    //     }
+
+    // }
+
     columnOpearation(index: any) {
         this.selname = "";
         this.selfieldType = "";
         if (this.sampleResponse.displayHeader[index].show) {
-            //  this.sampleResponse.displayHeader[index].show = false;
-            // var index = this.displayedColumns.findIndex((item: any) => item.name ===  this.sampleResponse.displayHeader[index].name);
-            // this.displayedColumns.splice(index, 1);
-
-
             this.sampleResponse.displayHeader[index].show = false;
-            this.displayedColumns.splice(index, 1);
-
         } else {
             this.sampleResponse.displayHeader[index].show = true;
-            this.displayedColumns.push(this.sampleResponse.displayHeader[index].name)
         }
 
+        this.displayedColumns = [];
+        this.sampleResponse.displayHeader.forEach((element: { show: any; name: any; }) => {
+            if (element.show) {
+                this.displayedColumns.push(element.name);
+            }
+        });
     }
 
     selectedSearchType(sObj: any) {
