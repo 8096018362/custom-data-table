@@ -124,6 +124,13 @@ export class TableComponent {
     selectedSearchType(sObj: any) {
         this.selname = sObj.searchType;
     }
+
+    multiSelectedSearchType(sObj: any, index: any) {
+        this.poForm.value.items[index].m_selSearchName = sObj.searchType;
+
+    }
+
+
     wholeDate: any;
     startDate: any;
     endDate: any;
@@ -277,16 +284,12 @@ export class TableComponent {
         this.endDate = '';
         this.wholeDate = '';
     }
-
-
-    public addForm() {
-
-    }
-
     getControls() {
         return (this.poForm.get('items') as FormArray).controls;
     }
+
     addMultiFields(obj: any) {
+        obj.searchOptions = obj.searchFieldType === 'text' ? this.searchArrayType2 : this.searchArrayType1;
         this.onAddItem(obj)
     }
 
@@ -296,11 +299,130 @@ export class TableComponent {
     createItem(obj: any) {
         return new FormGroup({
             'm_searchKey': new FormControl(obj.displayName ? obj.displayName : '', Validators.required),
-            'm_searchType': new FormControl(null, Validators.required),
+            'm_selSearchName': new FormControl("wholeSearch", Validators.required),
             'm_searchValue': new FormControl(null, Validators.required),
+            'm_searchArray': new FormControl(obj.searchOptions),
+            'm_searchFieldType': new FormControl(obj.searchFieldType),
+
+            "m_searchInputValue": new FormControl(null, Validators.required),
+            "m_searchInputFromValue": new FormControl(null, Validators.required),
+            "m_searchInputToValue": new FormControl(null, Validators.required),
+            "m_wholeDate": new FormControl(null, Validators.required),
+            "m_startDate": new FormControl(null, Validators.required),
+            "m_endDate": new FormControl(null, Validators.required),
         })
     }
     fetchDataByMultiFiltered() {
         console.log(this.poForm.value)
     }
 }
+
+
+
+// export class AddPOComponent {
+//     ngOnInit() {
+//         this.poForm = new FormGroup({
+//             'poInfo': new FormGroup({
+//                 'vendorName': new FormControl(null, Validators.required),
+//                 'purchageNumber': new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(30)])),
+//             }),
+//             'items': new FormArray([])
+//         });
+//         this.getAllVendors(); 
+
+//     }
+
+
+//     createItem() {
+//         return new FormGroup({
+//             'itemName': new FormControl(null, Validators.required),
+//             'quantity': new FormControl(null, [Validators.required, Validators.pattern('^([1-9][0-9]{0,4})$')]),
+//             'skuCode': new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(30)])),
+//         })
+//     }
+
+
+
+//     itemDetails: any = [];
+//     itemsAddStatus = false;
+//     onAddItem() {
+//         this.itemsAddStatus = true;
+//         (this.poForm.get('items') as FormArray).push(this.createItem());
+//     }
+
+//     onDeleteItem(index) {
+//         (this.poForm.get('items') as FormArray).removeAt(index);
+//         if (this.poForm.get('items').value.length === 0) {
+//             this.itemsAddStatus = false;
+//         }
+//     }
+
+//     skuCodeErrorMsg;
+//     getProductName(index) {
+//         let skuCheckingStatus = true
+//         const formObj: any = this.poForm.get('items') as FormArray;
+//         formObj.controls[index].get('itemName').setValue('')
+//         if (index) {
+//             for (let i = 0; i < this.poForm.get('items').value.length; i++) {
+//                 if (this.poForm.value.items[index].skuCode === this.poForm.value.items[i].skuCode && i !== index) {
+//                     skuCheckingStatus = false;
+//                     this.errorAlertMessages = "SKU Already exists";
+//                     setTimeout(() => {
+//                         this.errorAlertMessages = '';
+//                         formObj.controls[index].get('skuCode').setValue('')
+//                     }, 1000)
+//                 }
+//             }
+//         }
+
+//         if (skuCheckingStatus && this.poForm.value.items[index].skuCode) {
+//             this.poService.getSKUdetails(this.poForm.value.items[index].skuCode).subscribe((data) => {
+//                 if (data.data != null) {
+//                     skuCheckingStatus = false;
+//                     formObj.controls[index].get('itemName').setValue(data.data.inventory.productName)
+//                     // formObj.controls[index].get('itemName').setValue('data.data.productName')
+//                 } else {
+//                     this.errorAlertMessages = data.error.message;
+//                     setTimeout(() => {
+//                         this.errorAlertMessages = '';
+//                         formObj.controls[index].get('skuCode').setValue('')
+//                     }, 1000)
+//                 }
+//             })
+//         }
+
+
+
+
+//     }
+//     // getProductName(index) {
+//     //     let formObj: any = <FormArray>this.poForm.get('items');
+//     //     formObj.controls[index].get('itemName').setValue('')
+//     //     this.poService.getSKUdetails(this.poForm.value.items[index].skuCode).subscribe((data) => {
+//     //         if (data.data != null) {
+//     //             formObj.controls[index].get('itemName').setValue(data.data.productName)
+//     //         }
+//     //     })
+//     // }
+
+//     addPo() {
+//         this.submitted = false;
+//         if (this.poForm.valid && this.poDate) {
+//             if (this.itemsAddStatus) {
+//                 const poObj = {
+//                     "vendorId": {
+//                         "id": this.poForm.value.poInfo.vendorName,
+//                     },
+//                     "purchaseOrderNumber": this.poForm.value.poInfo.purchageNumber,
+//                     "commercialInvoiceDate": this.poDate["jsdate"],
+//                     "comments": this.comments
+//                 }
+//                 this.addPoSubMethod(poObj)
+
+//             } else {
+//                 alert('please add item')
+//             }
+//         } else {
+//             this.submitted = true;
+//         }
+//     }
