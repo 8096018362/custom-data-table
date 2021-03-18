@@ -4,8 +4,8 @@
             <mat-form-field appearance="fill">
                 <mat-label>Show/Hide Columns</mat-label>
                 <mat-select multiple [(ngModel)]="selectedColumns">
-                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name">
-                        <div (click)="columnOpearation(i)">{{a.displayName}}</div>
+                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name" (click)="columnOpearation(i)">
+                        <div>{{a.displayName}}</div>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
@@ -17,8 +17,8 @@
             <mat-form-field appearance="fill">
                 <mat-label> Filters</mat-label>
                 <mat-select>
-                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name">
-                        <div (click)="openSearchFields(a)">{{a.displayName}}</div>
+                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name" (click)="openSearchFields(a)">
+                        <div>{{a.displayName}}</div>
                     </mat-option>
                 </mat-select>
             </mat-form-field>
