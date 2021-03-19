@@ -261,125 +261,130 @@ export class TableComponent {
     fetchDataByMultiFiltered() {
         console.log(JSON.stringify(this.poForm.value.items))
         this.multiData = this.poForm.value.items;
-       
-        this.finalArray = [];
-        let mainKey = this.multiData[0].m_searchKey;
-        let searchType = this.multiData[0].m_selSearchName;
-        this.selfieldType = this.multiData[0].m_searchFieldType;
-        this.searchInputValue = this.multiData[0].m_searchInputValue;
-
         let dataSource: any = this.sampleResponse.data;
+        
 
-        if (this.selfieldType == 'date') {
-            switch (searchType) {
 
-                case "wholeSearch":
-                    dataSource.map((itm: any) => {
-                        if (moment(itm[mainKey]).format('YYYY-MM-DD') == moment(this.wholeDate).format('YYYY-MM-DD')) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
+        this.multiData.forEach((element: { m_searchKey: any; m_selSearchName: any; m_searchFieldType : any; m_searchInputValue : any;}) => {
+            this.finalArray = [];
+            let mainKey = element.m_searchKey;
+            let searchType = element.m_selSearchName;
+            this.selfieldType = element.m_searchFieldType;
+            this.searchInputValue = element.m_searchInputValue;
 
-                case 'greterthan':
-                    dataSource.map((itm: any) => {
-                        if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.wholeDate).format('YYYY-MM-DD')) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'greterthanorequal':
-                    dataSource.map((itm: any) => {
-                        if (moment(itm[mainKey]).format('YYYY-MM-DD') >= moment(this.wholeDate).format('YYYY-MM-DD')) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
+            if (this.selfieldType == 'date') {
+                switch (searchType) {
 
-                case 'lessthan':
-                    dataSource.map((itm: any) => {
-                        if (moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.wholeDate).format('YYYY-MM-DD')) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'lessthanorequal':
-                    dataSource.map((itm: any) => {
-                        if (moment(itm[mainKey]).format('YYYY-MM-DD') <= moment(this.wholeDate).format('YYYY-MM-DD')) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
+                    case "wholeSearch":
+                        dataSource.map((itm: any) => {
+                            if (moment(itm[mainKey]).format('YYYY-MM-DD') == moment(this.wholeDate).format('YYYY-MM-DD')) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
 
-                case 'between':
-                    dataSource.map((itm: any) => {
-                        if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.startDate).format('YYYY-MM-DD') && moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.endDate).format('YYYY-MM-DD')) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
+                    case 'greterthan':
+                        dataSource.map((itm: any) => {
+                            if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.wholeDate).format('YYYY-MM-DD')) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'greterthanorequal':
+                        dataSource.map((itm: any) => {
+                            if (moment(itm[mainKey]).format('YYYY-MM-DD') >= moment(this.wholeDate).format('YYYY-MM-DD')) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
 
+                    case 'lessthan':
+                        dataSource.map((itm: any) => {
+                            if (moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.wholeDate).format('YYYY-MM-DD')) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'lessthanorequal':
+                        dataSource.map((itm: any) => {
+                            if (moment(itm[mainKey]).format('YYYY-MM-DD') <= moment(this.wholeDate).format('YYYY-MM-DD')) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+
+                    case 'between':
+                        dataSource.map((itm: any) => {
+                            if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.startDate).format('YYYY-MM-DD') && moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.endDate).format('YYYY-MM-DD')) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+
+                }
+
+            } else {
+                switch (searchType) {
+
+                    case "wholeSearch":
+                        dataSource.map((itm: any) => {
+                            if (itm[mainKey] == this.searchInputValue) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'greterthan':
+                        dataSource.map((itm: any) => {
+                            if (itm[mainKey] > this.searchInputValue) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'greterthanorequal':
+                        dataSource.map((itm: any) => {
+                            if (itm[mainKey] >= this.searchInputValue) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'lessthan':
+                        dataSource.map((itm: any) => {
+                            if (itm[mainKey] < this.searchInputValue) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'lessthanorequal':
+                        dataSource.map((itm: any) => {
+                            if (itm[mainKey] <= this.searchInputValue) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                    case 'between':
+                        dataSource.map((itm: any) => {
+                            if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
+                                this.finalArray.push(itm)
+                            }
+                        });
+                        this.dataSet();
+                        break;
+                }
             }
 
-        } else {
-            switch (searchType) {
-
-                case "wholeSearch":
-                    dataSource.map((itm: any) => {
-                        if (itm[mainKey] == this.searchInputValue) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'greterthan':
-                    dataSource.map((itm: any) => {
-                        if (itm[mainKey] > this.searchInputValue) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'greterthanorequal':
-                    dataSource.map((itm: any) => {
-                        if (itm[mainKey] >= this.searchInputValue) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'lessthan':
-                    dataSource.map((itm: any) => {
-                        if (itm[mainKey] < this.searchInputValue) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'lessthanorequal':
-                    dataSource.map((itm: any) => {
-                        if (itm[mainKey] <= this.searchInputValue) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-                case 'between':
-                    dataSource.map((itm: any) => {
-                        if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
-                            this.finalArray.push(itm)
-                        }
-                    });
-                    this.dataSet();
-                    break;
-            }
-        }
+            dataSource = this.finalArray;
+        });
     }
 
     dataSet() {
