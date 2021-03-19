@@ -138,10 +138,134 @@ export class TableComponent {
     finalArray: any = [];
     public fetchDataByFiltered() {
 
-
         this.finalArray = [];
         let mainKey = this.selectedSearchObj.name;
         let searchType = this.selname;
+
+        let dataSource: any = this.sampleResponse.data;
+
+        if (this.selfieldType == 'date') {
+            switch (searchType) {
+
+                case "wholeSearch":
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') == moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+
+                case 'greterthan':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'greterthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') >= moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+
+                case 'lessthan':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'lessthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') <= moment(this.wholeDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+
+                case 'between':
+                    dataSource.map((itm: any) => {
+                        if (moment(itm[mainKey]).format('YYYY-MM-DD') > moment(this.startDate).format('YYYY-MM-DD') && moment(itm[mainKey]).format('YYYY-MM-DD') < moment(this.endDate).format('YYYY-MM-DD')) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+
+            }
+
+        } else {
+            switch (searchType) {
+
+                case "wholeSearch":
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] == this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'greterthan':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] > this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'greterthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] >= this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'lessthan':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] < this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'lessthanorequal':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] <= this.searchInputValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+                case 'between':
+                    dataSource.map((itm: any) => {
+                        if (itm[mainKey] > this.searchInputFromValue && itm[mainKey] < this.searchInputToValue) {
+                            this.finalArray.push(itm)
+                        }
+                    });
+                    this.dataSet();
+                    break;
+            }
+        }
+    }
+
+    multiData : any;
+    finalArrayFilter: any = [];
+    fetchDataByMultiFiltered() {
+        console.log(JSON.stringify(this.poForm.value.items))
+        this.multiData = this.poForm.value.items;
+       
+        this.finalArray = [];
+        let mainKey = this.multiData[0].m_searchKey;
+        let searchType = this.multiData[0].m_selSearchName;
+        this.selfieldType = this.multiData[0].m_searchFieldType;
 
         let dataSource: any = this.sampleResponse.data;
 
@@ -267,7 +391,6 @@ export class TableComponent {
         }, 2000);
     }
 
-
     resetTable() {
 
         this.dataSource.data = this.sampleResponse.data;
@@ -312,50 +435,8 @@ export class TableComponent {
             "m_endDate": new FormControl(null, Validators.required),
         })
     }
-    fetchDataByMultiFiltered() {
-        console.log(JSON.stringify(this.poForm.value.items))
-        //this.multiData=JSON.stringify(this.poForm.value.items)
-        // this.finalArray = this.sampleResponse.data;
-        // let finalArray: any = [];
-        // this.finalArray.map((itm: any) => {
-        //     this.multiData.map((subItem: any) => {
-        //         console.log(itm[subItem.m_searchKey])
-        //         if (itm[subItem.m_searchKey] == subItem.m_searchInputValue) {
-        //             finalArray.push(itm)
-        //         }
-        //     })
-        // });
-
-        // let findIndex = 0;
-
-        // for (let i = 0; i < 1; i++) {
-        //     for (let j = 0; j < this.multiData.length; j++) {
-        //         console.log(this.finalArray[0][this.multiData[j].m_searchKey])
-        //         // if (this.finalArray[findIndex][this.multiData[j].m_searchKey] == this.multiData[j].m_searchInputValue) {
-        //         //     findIndex = i;
-        //         //     console.log(findIndex)
-        //         //     finalArray.push(this.finalArray[findIndex])
-        //         // }
-        //     }
-        // }
 
 
-        // for (let i = 0; i < this.multiData.length; i++) {
-        //     for (let j = 0; j < this.finalArray.length; j++) {
-        //         this.finalArray.find((data: any) => {
-        //             if (data[this.multiData[i].m_searchKey] == this.multiData[i].m_searchInputValue) {
-        //                 this.finalArray = [];
-        //                 this.finalArray.push(data)
-        //             }
-        //         })
-        //     }
-        // }
-
-
-        // setTimeout(() => {
-        //     console.log(this.finalArray)
-        // }, 5000);
-    }
 
 }
 

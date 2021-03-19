@@ -60,8 +60,6 @@
                     </mat-form-field>
                 </div>
 
-                <!--Date-->
-
                 <div *ngIf="selname!='between'&&selfieldType=='date'">
                     <mat-form-field appearance="fill">
                         <mat-label>Date(m/d/y)</mat-label>
@@ -106,8 +104,8 @@
     <mat-form-field appearance="fill">
         <mat-label>Multi Filters</mat-label>
         <mat-select multiple>
-            <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name">
-                <div (click)="addMultiFields(a)">{{a.displayName}}</div>
+            <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name" (click)="addMultiFields(a)">
+                <div>{{a.displayName}}</div>
             </mat-option>
         </mat-select>
     </mat-form-field>
