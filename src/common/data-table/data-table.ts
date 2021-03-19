@@ -298,9 +298,9 @@ export class TableComponent {
     }
     createItem(obj: any) {
         return new FormGroup({
-            'm_searchKey': new FormControl(obj.displayName ? obj.displayName : '', Validators.required),
+            'm_searchKey': new FormControl(obj.name ? obj.name : '', Validators.required),
+            'm_displyKey': new FormControl(obj.displayName ? obj.displayName : '', Validators.required),
             'm_selSearchName': new FormControl("wholeSearch", Validators.required),
-            'm_searchValue': new FormControl(null, Validators.required),
             'm_searchArray': new FormControl(obj.searchOptions),
             'm_searchFieldType': new FormControl(obj.searchFieldType),
 
@@ -313,7 +313,7 @@ export class TableComponent {
         })
     }
     fetchDataByMultiFiltered() {
-        console.log(this.poForm.value)
+        console.log(JSON.stringify(this.poForm.value.items))
     }
 }
 
