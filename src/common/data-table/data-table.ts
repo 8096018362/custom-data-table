@@ -266,6 +266,7 @@ export class TableComponent {
         let mainKey = this.multiData[0].m_searchKey;
         let searchType = this.multiData[0].m_selSearchName;
         this.selfieldType = this.multiData[0].m_searchFieldType;
+        this.searchInputValue = this.multiData[0].m_searchInputValue;
 
         let dataSource: any = this.sampleResponse.data;
 
