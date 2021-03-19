@@ -3,6 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import * as moment from 'moment';
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 
 @Component({
     selector: 'rmdatatable',
@@ -10,6 +11,20 @@ import * as moment from 'moment';
     styleUrls: ['./data-table.css']
 })
 export class TableComponent {
+
+
+    public poForm: FormGroup;
+
+    constructor(
+        private readonly fb: FormBuilder
+    ) {
+        this.poForm = new FormGroup({
+            'items': new FormArray([])
+        });
+        // this.onAddItem()
+    }
+
+
 
     @Input() sampleResponse: any = {};
 
@@ -89,26 +104,6 @@ export class TableComponent {
 
     }
 
-
-    // columnOpearation(index: any) {
-    //     this.selname = "";
-    //     this.selfieldType = "";
-    //     if (this.sampleResponse.displayHeader[index].show) {
-    //         //  this.sampleResponse.displayHeader[index].show = false;
-    //         // var index = this.displayedColumns.findIndex((item: any) => item.name ===  this.sampleResponse.displayHeader[index].name);
-    //         // this.displayedColumns.splice(index, 1);
-
-
-    //         this.sampleResponse.displayHeader[index].show = false;
-    //         this.displayedColumns.splice(index, 1);
-
-    //     } else {
-    //         this.sampleResponse.displayHeader[index].show = true;
-    //         this.displayedColumns.push(this.sampleResponse.displayHeader[index].name)
-    //     }
-
-    // }
-
     columnOpearation(index: any) {
         this.selname = "";
         this.selfieldType = "";
@@ -129,6 +124,13 @@ export class TableComponent {
     selectedSearchType(sObj: any) {
         this.selname = sObj.searchType;
     }
+
+    multiSelectedSearchType(sObj: any, index: any) {
+        this.poForm.value.items[index].m_selSearchName = sObj.searchType;
+
+    }
+
+
     wholeDate: any;
     startDate: any;
     endDate: any;
@@ -282,4 +284,145 @@ export class TableComponent {
         this.endDate = '';
         this.wholeDate = '';
     }
+    getControls() {
+        return (this.poForm.get('items') as FormArray).controls;
+    }
+
+    addMultiFields(obj: any) {
+        obj.searchOptions = obj.searchFieldType === 'text' ? this.searchArrayType2 : this.searchArrayType1;
+        this.onAddItem(obj)
+    }
+
+    onAddItem(obj: any) {
+        (this.poForm.get('items') as FormArray).push(this.createItem(obj));
+    }
+    createItem(obj: any) {
+        return new FormGroup({
+            'm_searchKey': new FormControl(obj.name ? obj.name : '', Validators.required),
+            'm_displyKey': new FormControl(obj.displayName ? obj.displayName : '', Validators.required),
+            'm_selSearchName': new FormControl("wholeSearch", Validators.required),
+            'm_searchArray': new FormControl(obj.searchOptions),
+            'm_searchFieldType': new FormControl(obj.searchFieldType),
+
+            "m_searchInputValue": new FormControl(null, Validators.required),
+            "m_searchInputFromValue": new FormControl(null, Validators.required),
+            "m_searchInputToValue": new FormControl(null, Validators.required),
+            "m_wholeDate": new FormControl(null, Validators.required),
+            "m_startDate": new FormControl(null, Validators.required),
+            "m_endDate": new FormControl(null, Validators.required),
+        })
+    }
+    fetchDataByMultiFiltered() {
+        console.log(JSON.stringify(this.poForm.value.items))
+    }
 }
+
+
+
+// export class AddPOComponent {
+//     ngOnInit() {
+//         this.poForm = new FormGroup({
+//             'poInfo': new FormGroup({
+//                 'vendorName': new FormControl(null, Validators.required),
+//                 'purchageNumber': new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(30)])),
+//             }),
+//             'items': new FormArray([])
+//         });
+//         this.getAllVendors(); 
+
+//     }
+
+
+//     createItem() {
+//         return new FormGroup({
+//             'itemName': new FormControl(null, Validators.required),
+//             'quantity': new FormControl(null, [Validators.required, Validators.pattern('^([1-9][0-9]{0,4})$')]),
+//             'skuCode': new FormControl(null, Validators.compose([Validators.required, Validators.maxLength(30)])),
+//         })
+//     }
+
+
+
+//     itemDetails: any = [];
+//     itemsAddStatus = false;
+//     onAddItem() {
+//         this.itemsAddStatus = true;
+//         (this.poForm.get('items') as FormArray).push(this.createItem());
+//     }
+
+//     onDeleteItem(index) {
+//         (this.poForm.get('items') as FormArray).removeAt(index);
+//         if (this.poForm.get('items').value.length === 0) {
+//             this.itemsAddStatus = false;
+//         }
+//     }
+
+//     skuCodeErrorMsg;
+//     getProductName(index) {
+//         let skuCheckingStatus = true
+//         const formObj: any = this.poForm.get('items') as FormArray;
+//         formObj.controls[index].get('itemName').setValue('')
+//         if (index) {
+//             for (let i = 0; i < this.poForm.get('items').value.length; i++) {
+//                 if (this.poForm.value.items[index].skuCode === this.poForm.value.items[i].skuCode && i !== index) {
+//                     skuCheckingStatus = false;
+//                     this.errorAlertMessages = "SKU Already exists";
+//                     setTimeout(() => {
+//                         this.errorAlertMessages = '';
+//                         formObj.controls[index].get('skuCode').setValue('')
+//                     }, 1000)
+//                 }
+//             }
+//         }
+
+//         if (skuCheckingStatus && this.poForm.value.items[index].skuCode) {
+//             this.poService.getSKUdetails(this.poForm.value.items[index].skuCode).subscribe((data) => {
+//                 if (data.data != null) {
+//                     skuCheckingStatus = false;
+//                     formObj.controls[index].get('itemName').setValue(data.data.inventory.productName)
+//                     // formObj.controls[index].get('itemName').setValue('data.data.productName')
+//                 } else {
+//                     this.errorAlertMessages = data.error.message;
+//                     setTimeout(() => {
+//                         this.errorAlertMessages = '';
+//                         formObj.controls[index].get('skuCode').setValue('')
+//                     }, 1000)
+//                 }
+//             })
+//         }
+
+
+
+
+//     }
+//     // getProductName(index) {
+//     //     let formObj: any = <FormArray>this.poForm.get('items');
+//     //     formObj.controls[index].get('itemName').setValue('')
+//     //     this.poService.getSKUdetails(this.poForm.value.items[index].skuCode).subscribe((data) => {
+//     //         if (data.data != null) {
+//     //             formObj.controls[index].get('itemName').setValue(data.data.productName)
+//     //         }
+//     //     })
+//     // }
+
+//     addPo() {
+//         this.submitted = false;
+//         if (this.poForm.valid && this.poDate) {
+//             if (this.itemsAddStatus) {
+//                 const poObj = {
+//                     "vendorId": {
+//                         "id": this.poForm.value.poInfo.vendorName,
+//                     },
+//                     "purchaseOrderNumber": this.poForm.value.poInfo.purchageNumber,
+//                     "commercialInvoiceDate": this.poDate["jsdate"],
+//                     "comments": this.comments
+//                 }
+//                 this.addPoSubMethod(poObj)
+
+//             } else {
+//                 alert('please add item')
+//             }
+//         } else {
+//             this.submitted = true;
+//         }
+//     }

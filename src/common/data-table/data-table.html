@@ -1,4 +1,5 @@
 <div class="">
+
     <mat-grid-list cols="5" rowHeight="100px">
         <mat-grid-tile>
             <mat-form-field appearance="fill">
@@ -95,22 +96,109 @@
     </mat-grid-list>
 
 
-    <!-- <br>
-    <br><br><br><br><br><br>
-    <mat-grid-list cols="5">
-        <mat-grid-tile>
-            <mat-accordion>
-                <mat-expansion-panel *ngFor="let a of sampleResponse.displayHeader;let i=index">
-                    <mat-expansion-panel-header>
-                        <mat-panel-title>
-                            {{a.displayName}}
-                        </mat-panel-title>
-                    </mat-expansion-panel-header>
-                    <p>This is the primary content of the panel.</p>
-                </mat-expansion-panel>
-            </mat-accordion>
-        </mat-grid-tile>
-    </mat-grid-list> -->
+
+    <br>
+
+
+
+    <mat-form-field appearance="fill">
+        <mat-label>Multi Filters</mat-label>
+        <mat-select multiple>
+            <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name">
+                <div (click)="addMultiFields(a)">{{a.displayName}}</div>
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+
+    <form [formGroup]="poForm">
+        <mat-grid-list cols="5" rowHeight="100px" formArrayName="items"
+            *ngFor="let item of getControls(); let i = index">
+            <div [formGroupName]="i">
+                <mat-grid-tile>
+                    {{poForm.value.items[i].m_searchKey}}
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="fill">
+                        <mat-label> Types</mat-label>
+                        <mat-select formControlName='m_selSearchName'>
+                            <mat-option *ngFor="let search of poForm.value.items[i].m_searchArray"
+                                [value]="search.searchType" (click)="multiSelectedSearchType(search,i)">
+                                {{search.searchType}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+
+                    <div *ngIf="poForm.value.items[i].m_selSearchName">
+
+                        <div
+                            *ngIf="poForm.value.items[i].m_selSearchName!='between'&&poForm.value.items[i].m_searchFieldType!=='date'">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>{{selname}}</mat-label>
+                                <input matInput [type]="poForm.value.items[i].m_searchFieldType"
+                                    formControlName="m_searchInputValue">
+                            </mat-form-field>
+                        </div>
+
+                        <div
+                            *ngIf="poForm.value.items[i].m_selSearchName=='between'&&poForm.value.items[i].m_searchFieldType!=='date'">
+                            <mat-form-field class="example-form-field">
+                                <mat-label>From</mat-label>
+                                <input matInput [type]="poForm.value.items[i].m_searchFieldType"
+                                    formControlName="m_searchInputFromValue">
+                            </mat-form-field>
+
+                            <mat-form-field class="example-form-field">
+                                <mat-label>To</mat-label>
+                                <input matInput [type]="poForm.value.items[i].m_searchFieldType"
+                                    formControlName="m_searchInputToValue">
+                            </mat-form-field>
+                        </div>
+                        <!---date-->
+
+                        <div
+                            *ngIf="poForm.value.items[i].m_selSearchName!='between'&&poForm.value.items[i].m_searchFieldType=='date'">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Date(m/d/y)</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="m_wholeDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div
+                            *ngIf="poForm.value.items[i].m_selSearchName=='between'&&poForm.value.items[i].m_searchFieldType=='date'">
+                            <mat-form-field appearance="fill">
+                                <mat-label>From Date((m/d/y)</mat-label>
+                                <input matInput [matDatepicker]="picker" formControlName="m_startDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+                            <br>
+                            <mat-form-field appearance="fill">
+                                <mat-label>To Date((m/d/y)</mat-label>
+                                <input matInput [matDatepicker]="picker1" formControlName="m_endDate">
+                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                <mat-datepicker #picker1></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+
+
+                </mat-grid-tile>
+            </div>
+        </mat-grid-list>
+        <mat-grid-list cols="5" rowHeight="100px">
+            <mat-grid-tile *ngIf="getControls().length">
+                <button mat-raised-button color="primary" (click)="fetchDataByMultiFiltered()">Submit</button>
+            </mat-grid-tile>
+        </mat-grid-list>
+    </form>
+
 
     <br>
     <div class="mat-elevation-z8" *ngIf="displayedColumns">
