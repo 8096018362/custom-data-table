@@ -256,16 +256,13 @@ export class TableComponent {
         }
     }
 
-    multiData : any;
+    multiData: any;
     finalArrayFilter: any = [];
     fetchDataByMultiFiltered() {
-        console.log(JSON.stringify(this.poForm.value.items))
         this.multiData = this.poForm.value.items;
         let dataSource: any = this.sampleResponse.data;
-        
 
-
-        this.multiData.forEach((element: { m_searchKey: any; m_selSearchName: any; m_searchFieldType : any; m_searchInputValue : any;}) => {
+        this.multiData.forEach((element: { m_searchKey: any; m_selSearchName: any; m_searchFieldType: any; m_searchInputValue: any; }) => {
             this.finalArray = [];
             let mainKey = element.m_searchKey;
             let searchType = element.m_selSearchName;

@@ -14,14 +14,22 @@
         </mat-grid-tile>
     </mat-grid-list>
 
-    <mat-form-field appearance="fill">
-        <mat-label>Multi Filters</mat-label>
-        <mat-select multiple>
-            <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name" (click)="addMultiFields(a)">
-                <div>{{a.displayName}}</div>
-            </mat-option>
-        </mat-select>
-    </mat-form-field>
+    <mat-grid-list cols="5" rowHeight="100px">
+        <mat-grid-tile>
+            <mat-form-field appearance="fill">
+                <mat-label>Multi Filters</mat-label>
+                <mat-select multiple>
+                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name"
+                        (click)="addMultiFields(a)">
+                        <div>{{a.displayName}}</div>
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </mat-grid-tile>
+    </mat-grid-list>
+
+
+
 
 
     <form [formGroup]="poForm">
