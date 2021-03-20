@@ -1,6 +1,114 @@
 <div class="">
 
 
+    <div>
+        <mat-grid-list cols="5" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Show/Hide Columns</mat-label>
+                    <mat-select multiple [(ngModel)]="selectedColumns">
+                        <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name"
+                            (click)="columnOpearation(i)">
+                            <div>{{a.displayName}}</div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    
+        <mat-grid-list cols="5" rowHeight="100px">
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Multi Filters</mat-label>
+                    <mat-select multiple>
+                        <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name"
+                            (click)="addMultiFields(a)">
+                            <div>{{a.displayName}}</div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
+        </mat-grid-list>
+    
+        <form [formGroup]="poForm">
+            <mat-grid-list cols="5" rowHeight="100px" formArrayName="items"
+                *ngFor="let item of getControls(); let i = index">
+                <div [formGroupName]="i">
+                    <mat-grid-tile>
+                        {{poForm.value.items[i].m_displyKey}}
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+                        <mat-form-field appearance="fill">
+                            <mat-label> Types</mat-label>
+                            <mat-select formControlName='m_selSearchName'>
+                                <mat-option *ngFor="let search of poForm.value.items[i].m_searchArray"
+                                    [value]="search.searchType" (click)="multiSelectedSearchType(search,i)">
+                                    {{search.searchType}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </mat-grid-tile>
+                    <mat-grid-tile>
+    
+                        <div *ngIf="poForm.value.items[i].m_selSearchName">
+                            <div
+                                *ngIf="poForm.value.items[i].m_selSearchName!='between'&&poForm.value.items[i].m_searchFieldType!=='date'">
+                                <mat-form-field class="example-form-field" appearance="outline">
+                                    <input matInput [type]="poForm.value.items[i].m_searchFieldType"
+                                        formControlName="m_searchInputValue" placeholder="Enter here...">
+                                </mat-form-field>
+                            </div>
+    
+                            <div
+                                *ngIf="poForm.value.items[i].m_selSearchName=='between'&&poForm.value.items[i].m_searchFieldType!=='date'">
+                                <mat-form-field class="example-form-field" appearance="outline">
+                                    <mat-label>From</mat-label>
+                                    <input matInput [type]="poForm.value.items[i].m_searchFieldType"
+                                        formControlName="m_searchInputFromValue" placeholder="Enter here...">
+                                </mat-form-field>
+    
+                                <mat-form-field class="example-form-field" appearance="outline">
+                                    <mat-label>To</mat-label>
+                                    <input matInput [type]="poForm.value.items[i].m_searchFieldType"
+                                        formControlName="m_searchInputToValue" placeholder="Enter here...">
+                                </mat-form-field>
+                            </div>
+                            <div
+                                *ngIf="poForm.value.items[i].m_selSearchName!='between'&&poForm.value.items[i].m_searchFieldType=='date'">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>Date(m/d/y)</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="m_wholeDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                            <div
+                                *ngIf="poForm.value.items[i].m_selSearchName=='between'&&poForm.value.items[i].m_searchFieldType=='date'">
+                                <mat-form-field appearance="fill">
+                                    <mat-label>From Date((m/d/y)</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="m_startDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <br>
+                                <mat-form-field appearance="fill">
+                                    <mat-label>To Date((m/d/y)</mat-label>
+                                    <input matInput [matDatepicker]="picker1" formControlName="m_endDate">
+                                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </mat-grid-tile>
+                </div>
+            </mat-grid-list>
+            <mat-grid-list cols="5" rowHeight="100px">
+                <mat-grid-tile *ngIf="getControls().length">
+                    <button mat-raised-button color="primary" (click)="fetchDataByMultiFiltered()">Submit</button>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </form>
+    </div>
     <div class="mat-elevation-z8" *ngIf="displayedColumns">
         <div style="margin-left: 20px;">
             <mat-form-field class="example-form-field" appearance="outline" style="width: 75%;padding-top: 20px;">
@@ -28,205 +136,5 @@
         <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
     </div>
     <br>
-    <mat-grid-list cols="5" rowHeight="100px">
-        <mat-grid-tile>
-            <mat-form-field appearance="fill">
-                <mat-label>Show/Hide Columns</mat-label>
-                <mat-select multiple [(ngModel)]="selectedColumns">
-                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name"
-                        (click)="columnOpearation(i)">
-                        <div>{{a.displayName}}</div>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-    <mat-grid-list cols="5" rowHeight="100px">
-        <mat-grid-tile>
-            <mat-form-field appearance="fill">
-                <mat-label> Filters</mat-label>
-                <mat-select>
-                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name">
-                        <div (click)="openSearchFields(a)">{{a.displayName}}</div>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-            <mat-form-field appearance="fill" *ngIf="searchArray.length&&selfieldType">
-                <mat-label>{{selectedSearchObj?.name}} Search Types</mat-label>
-                <mat-select [(ngModel)]="defaultSearchType">
-                    <mat-option *ngFor="let search of searchArray" [value]="search.searchType"
-                        (click)="selectedSearchType(search)">
-                        {{search.searchType}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-grid-tile>
-        <mat-grid-tile>
-
-            <div *ngIf="selname&&searchArray.length">
-
-                <div *ngIf="selname!='between'&&selfieldType!=='date'">
-                    <mat-form-field class="example-form-field" appearance="outline">
-                        <mat-label>{{selname}}</mat-label>
-                        <input matInput [type]="selfieldType" [(ngModel)]="searchInputValue">
-                    </mat-form-field>
-                </div>
-
-                <div *ngIf="selname=='between'&&selfieldType!=='date'">
-                    <mat-form-field class="example-form-field" appearance="outline">
-                        <mat-label>From</mat-label>
-                        <input matInput [type]="selfieldType" [(ngModel)]="searchInputFromValue">
-                    </mat-form-field>
-
-                    <mat-form-field class="example-form-field" appearance="outline">
-                        <mat-label>To</mat-label>
-                        <input matInput [type]="selfieldType" [(ngModel)]="searchInputToValue">
-                    </mat-form-field>
-                </div>
-
-                <!--Date-->
-
-                <div *ngIf="selname!='between'&&selfieldType=='date'">
-                    <mat-form-field appearance="fill">
-                        <mat-label>Date(m/d/y)</mat-label>
-                        <input matInput [matDatepicker]="picker" [(ngModel)]="wholeDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                </div>
-
-
-                <div *ngIf="selname=='between'&&selfieldType=='date'">
-                    <mat-form-field appearance="fill">
-                        <mat-label>From Date((m/d/y)</mat-label>
-                        <input matInput [matDatepicker]="picker" [(ngModel)]="startDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                        <mat-datepicker #picker></mat-datepicker>
-                    </mat-form-field>
-                    <br>
-                    <mat-form-field appearance="fill">
-                        <mat-label>To Date((m/d/y)</mat-label>
-                        <input matInput [matDatepicker]="picker1" [(ngModel)]="endDate">
-                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                        <mat-datepicker #picker1></mat-datepicker>
-                    </mat-form-field>
-                </div>
-            </div>
-        </mat-grid-tile>
-        <mat-grid-tile *ngIf="selname&&searchArray.length">
-            <button mat-raised-button color="primary" (click)="fetchDataByFiltered()">Submit</button>
-            <button mat-raised-button color="warning" (click)="resetTable()">Reset</button>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-
-    <mat-grid-list cols="5" rowHeight="100px">
-        <mat-grid-tile>
-            <mat-form-field appearance="fill">
-                <mat-label>Multi Filters</mat-label>
-                <mat-select multiple>
-                    <mat-option *ngFor="let a of sampleResponse.displayHeader;let i=index" [value]="a.name"
-                        (click)="addMultiFields(a)">
-                        <div>{{a.displayName}}</div>
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-        </mat-grid-tile>
-    </mat-grid-list>
-
-
-
-
-
-    <form [formGroup]="poForm">
-        <mat-grid-list cols="5" rowHeight="100px" formArrayName="items"
-            *ngFor="let item of getControls(); let i = index">
-            <div [formGroupName]="i">
-                <mat-grid-tile>
-                    {{poForm.value.items[i].m_searchKey}}
-                </mat-grid-tile>
-                <mat-grid-tile>
-                    <mat-form-field appearance="fill">
-                        <mat-label> Types</mat-label>
-                        <mat-select formControlName='m_selSearchName'>
-                            <mat-option *ngFor="let search of poForm.value.items[i].m_searchArray"
-                                [value]="search.searchType" (click)="multiSelectedSearchType(search,i)">
-                                {{search.searchType}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </mat-grid-tile>
-                <mat-grid-tile>
-
-                    <div *ngIf="poForm.value.items[i].m_selSearchName">
-
-                        <div
-                            *ngIf="poForm.value.items[i].m_selSearchName!='between'&&poForm.value.items[i].m_searchFieldType!=='date'">
-                            <mat-form-field class="example-form-field" appearance="outline">
-                                <input matInput [type]="poForm.value.items[i].m_searchFieldType"
-                                    formControlName="m_searchInputValue" placeholder="Enter here...">
-                            </mat-form-field>
-                        </div>
-
-                        <div
-                            *ngIf="poForm.value.items[i].m_selSearchName=='between'&&poForm.value.items[i].m_searchFieldType!=='date'">
-                            <mat-form-field class="example-form-field" appearance="outline">
-                                <mat-label>From</mat-label>
-                                <input matInput [type]="poForm.value.items[i].m_searchFieldType"
-                                    formControlName="m_searchInputFromValue" placeholder="Enter here...">
-                            </mat-form-field>
-
-                            <mat-form-field class="example-form-field" appearance="outline">
-                                <mat-label>To</mat-label>
-                                <input matInput [type]="poForm.value.items[i].m_searchFieldType"
-                                    formControlName="m_searchInputToValue" placeholder="Enter here...">
-                            </mat-form-field>
-                        </div>
-
-                        <div
-                            *ngIf="poForm.value.items[i].m_selSearchName!='between'&&poForm.value.items[i].m_searchFieldType=='date'">
-                            <mat-form-field appearance="fill">
-                                <mat-label>Date(m/d/y)</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="m_wholeDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-
-
-                        <div
-                            *ngIf="poForm.value.items[i].m_selSearchName=='between'&&poForm.value.items[i].m_searchFieldType=='date'">
-                            <mat-form-field appearance="fill">
-                                <mat-label>From Date((m/d/y)</mat-label>
-                                <input matInput [matDatepicker]="picker" formControlName="m_startDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                            </mat-form-field>
-                            <br>
-                            <mat-form-field appearance="fill">
-                                <mat-label>To Date((m/d/y)</mat-label>
-                                <input matInput [matDatepicker]="picker1" formControlName="m_endDate">
-                                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                <mat-datepicker #picker1></mat-datepicker>
-                            </mat-form-field>
-                        </div>
-
-                    </div>
-
-
-                </mat-grid-tile>
-            </div>
-        </mat-grid-list>
-        <mat-grid-list cols="5" rowHeight="100px">
-            <mat-grid-tile *ngIf="getControls().length">
-                <button mat-raised-button color="primary" (click)="fetchDataByMultiFiltered()">Submit</button>
-            </mat-grid-tile>
-        </mat-grid-list>
-    </form>
-
-
-
+    
 </div>
