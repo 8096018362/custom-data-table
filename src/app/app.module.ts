@@ -7,11 +7,13 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TableComponentModule } from '../common/data-table/data-table.module';
 import { CommonModule } from '@angular/common';
+import { MaterialModule } from '../common/material/material.module';
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
+    MaterialModule,
     TableComponentModule,
     FormsModule,
     ReactiveFormsModule,

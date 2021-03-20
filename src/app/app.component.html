@@ -1,9 +1,18 @@
 <br>
 <div class="container">
-    <div class="sidenav">
-        <a routerLink="/products/">Products</a>
+    <div class="sidenav" style="background: #ba9e4d!important;color:white;padding: 10px 0px">
+        <!-- <a routerLink="/products/">Products</a>
         <a routerLink="/students/">Students</a>
-        <a routerLink="/teachers/">Teachers</a>
+        <a routerLink="/teachers/">Teachers</a> -->
+
+        <button mat-button (click)="reload()">
+            <mat-icon aria-hidden="false" aria-label="Example home icon">refresh</mat-icon>
+        </button>
+        <button mat-button routerLink="/products/">Products</button>
+        <button mat-button routerLink="/students/">Students</button>
+        <button mat-button routerLink="/teachers/">Teachers</button>
+
     </div>
 </div>
+
 <router-outlet></router-outlet>

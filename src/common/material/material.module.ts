@@ -14,9 +14,11 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatTabsModule } from '@angular/material/tabs';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
-    imports: [
+    imports: [MatTabsModule,MatIconModule,
         MatExpansionModule,
         MatInputModule,
         MatSelectModule,
@@ -32,7 +34,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
         MatSortModule,
         MatPaginatorModule
     ],
-    exports: [
+    exports: [MatTabsModule,MatIconModule,
         MatExpansionModule,
         MatInputModule,
         MatSelectModule,
