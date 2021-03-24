@@ -1,4 +1,4 @@
-table {
+/* table {
     width: 100%;
   }
   th.mat-sort-header-sorted {
@@ -26,4 +26,40 @@ table {
   .tle{
     color: #007eff;
     font-size: 20px;
+  }
+  
+  */
+
+
+  .example-container {
+    height: 300px;
+    /* width:'100%'; */
+    width:1024px;
+  }
+  
+  .mat-table {
+    color: #1a084c;
+    /* width:'100%'; */
+    width:1024px;
+    height: 300px;
+    overflow: auto;
+  }
+  
+  
+  .mat-header-row,
+  .mat-header-cell-def {
+    min-height: 25px;
+    font-size: 13px;
+    color: #1a084c;
+    margin: 5px 0px;
+    top: 0;
+    position: sticky;
+    z-index: 1;
+    background-color: inherit;
+  }
+  .mat-header-cell{
+    position: sticky;
+  }
+  .mat-header-row{
+    margin: 0px;
   }
