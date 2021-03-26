@@ -462,7 +462,9 @@ export class TableComponent {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-
+    isSticky(column: string): boolean {
+        return column === 'pkey' ? true : column === 'criticality' ? true : false;
+    }
 
 }
 

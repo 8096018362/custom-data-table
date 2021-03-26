@@ -115,7 +115,8 @@
     <table>
         <div class="example-container mat-elevation-z8">
             <mat-table #table [dataSource]="dataSource" matSort class="mat-table">
-                <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns">
+                <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns;let i=index"
+                    [sticky]="isSticky(column)">
                     <mat-header-cell *matHeaderCellDef mat-sort-header class="mat-header-cell" style="text-transform: capitalize;background: #ba9e4d;padding-top: 10px;padding-bottom: 10px;
                     color: white;" [style.color]="column=='criticality'||column=='warrantyExpiry'?'red':'white'">
                         {{column}} </mat-header-cell>
