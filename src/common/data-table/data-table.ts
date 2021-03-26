@@ -420,7 +420,22 @@ export class TableComponent {
 
     addMultiFields(obj: any) {
         obj.searchOptions = obj.searchFieldType === 'text' ? this.searchArrayType2 : this.searchArrayType1;
-        this.onAddItem(obj)
+        let Aobj: any = this.poForm.get('items');
+        let checkingStatus = true;
+
+        if (Aobj.value.length) {
+            for (let i = 0; i < Aobj.value.length; i++) {
+                if (obj.displayName === this.poForm.value.items[i].m_displyKey) {
+                    (this.poForm.get('items') as FormArray).removeAt(i);
+                    checkingStatus = false;
+                }
+            }
+            if (checkingStatus) {
+                this.onAddItem(obj)
+            }
+        } else {
+            this.onAddItem(obj)
+        }
     }
 
     onAddItem(obj: any) {
@@ -447,7 +462,6 @@ export class TableComponent {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
-
 
 
 }

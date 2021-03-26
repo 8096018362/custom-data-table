@@ -35,7 +35,9 @@
                 *ngFor="let item of getControls(); let i = index">
                 <div [formGroupName]="i">
                     <mat-grid-tile>
-                        {{poForm.value.items[i].m_displyKey}}
+
+                        <div>{{poForm.value.items[i].m_displyKey}}</div>
+
                     </mat-grid-tile>
                     <mat-grid-tile>
                         <mat-form-field appearance="fill">
@@ -129,7 +131,7 @@
             </mat-paginator>
         </div>
     </table>
-<br><br>
+    <br><br>
     <!-- <div class="mat-elevation-z8" *ngIf="displayedColumns">
         <div style="margin-left: 20px;">
             <mat-form-field class="example-form-field" appearance="outline" style="width: 75%;padding-top: 20px;">
