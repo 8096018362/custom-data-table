@@ -31,18 +31,18 @@
   */
 
 
-  .example-container {
+  /* .example-container {
     height: 300px;
-    /* width:'100%'; */
     width:1024px;
-  }
+  } */
   
   .mat-table {
     color: #1a084c;
     /* width:'100%'; */
     width:1024px;
-    height: 300px;
+    height: 330px;
     overflow: auto;
+    overflow-x: scroll;
   }
   
   
@@ -62,4 +62,20 @@
   }
   .mat-header-row{
     margin: 0px;
+  }
+
+  .mat-cell,
+  .mat-header-cell {
+    word-wrap: initial;
+    display: table-cell;
+    padding: 0px 10px;
+    line-break: unset;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: middle;
+  }
+  .mat-row,
+  .mat-header-row {
+    display: table-row;
   }
