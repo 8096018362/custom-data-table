@@ -79,3 +79,11 @@
   .mat-header-row {
     display: table-row;
   }
+
+   ::ng-deep .mat-sort-header-sorted {
+    color: white; /*change color of header*/
+}
+
+::ng-deep .mat-sort-header-arrow {
+  color: white; /*change color of arrow*/
+}
