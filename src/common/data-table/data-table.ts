@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import * as moment from 'moment';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
-import { CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragStart, CdkDropList, moveItemInArray, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
     selector: 'rmdatatable',
@@ -111,10 +111,16 @@ export class TableComponent {
         this.previousIndex = index;
     }
 
-    dropListDropped(event: CdkDropList, index: number) {
+    // This is not working
+    dropListDropped(event: CdkDropList<any>, index: number) {
         if (event) {
             moveItemInArray(this.displayedColumns, this.previousIndex, index);
-            //   this.setDisplayedColumns();
+        }
+    }
+
+    drop(event: CdkDragDrop<any>) {
+        if (event) {
+            moveItemInArray(this.displayedColumns, event.previousIndex, event.currentIndex);
         }
     }
 

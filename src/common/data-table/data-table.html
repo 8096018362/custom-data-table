@@ -114,14 +114,16 @@
 
     <table>
         <div class="example-container mat-elevation-z8">
-            <mat-table #table [dataSource]="dataSource" cdkDropListGroup matSort class="mat-table">
+            <mat-table #table [dataSource]="dataSource" 
+                cdkDropList
+                cdkDropListLockAxis="x"
+                cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="drop($event)"
+                matSort class="mat-table">
                 <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns;let i=index"
                     [sticky]="isSticky(column)">
                     <mat-header-cell *matHeaderCellDef 
-                    cdkDropList
-                    cdkDropListLockAxis="x"
-                    cdkDropListOrientation="horizontal"
-                    (cdkDropListDropped)="dropListDropped($event, i)"
+                    
                     cdkDrag
                     (cdkDragStarted)="dragStarted($event, i)"
                     [cdkDragData]="{name: column, columIndex: i}"
