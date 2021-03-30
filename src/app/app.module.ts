@@ -8,6 +8,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { TableComponentModule } from '../common/data-table/data-table.module';
 import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../common/material/material.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -19,7 +21,8 @@ import { MaterialModule } from '../common/material/material.module';
     ReactiveFormsModule,
     BrowserModule, CommonModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]
