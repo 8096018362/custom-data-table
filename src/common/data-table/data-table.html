@@ -14,6 +14,19 @@
                     </mat-select>
                 </mat-form-field>
             </mat-grid-tile>
+
+
+            <mat-grid-tile>
+                <mat-form-field appearance="fill">
+                    <mat-label>Freeze</mat-label>
+                    <mat-select multiple [(ngModel)]="freezeArray">
+                        <mat-option *ngFor="let a of displayedColumns;let i=index" [value]="a"
+                            (click)="columnOpearationFreeze($event)">
+                            <div>{{a}}</div>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </mat-grid-tile>
         </mat-grid-list>
 
         <mat-grid-list cols="5" rowHeight="100px">
@@ -114,24 +127,13 @@
 
     <table>
         <div class="example-container mat-elevation-z8">
-            <mat-table #table [dataSource]="dataSource" 
-                cdkDropList
-                cdkDropListLockAxis="x"
-                cdkDropListOrientation="horizontal"
-                (cdkDropListDropped)="drop($event)"
-                matSort class="mat-table">
+            <mat-table #table [dataSource]="dataSource" cdkDropList cdkDropListLockAxis="x"
+                cdkDropListOrientation="horizontal" (cdkDropListDropped)="drop($event)" matSort class="mat-table">
                 <ng-container [matColumnDef]="column" *ngFor="let column of displayedColumns;let i=index"
                     [sticky]="isSticky(column)">
-                    <mat-header-cell *matHeaderCellDef 
-                    
-                    cdkDrag
-                    (cdkDragStarted)="dragStarted($event, i)"
-                    [cdkDragData]="{name: column, columIndex: i}"
-                    mat-sort-header 
-                    class="mat-header-cell" 
-                    style="text-transform: capitalize;background: #ba9e4d;padding-top: 10px;padding-bottom: 10px;
-                    color: white;" 
-                    [style.color]="column=='criticality'||column=='warrantyExpiry'?'red':'white'">
+                    <mat-header-cell *matHeaderCellDef cdkDrag (cdkDragStarted)="dragStarted($event, i)"
+                        [cdkDragData]="{name: column, columIndex: i}" mat-sort-header class="mat-header-cell" style="text-transform: capitalize;background: #ba9e4d;padding-top: 10px;padding-bottom: 10px;
+                    color: white;" [style.color]="column=='criticality'||column=='warrantyExpiry'?'red':'white'">
                         {{column}} </mat-header-cell>
                     <mat-cell *matCellDef="let element"
                         [style.background-color]="element['criticality']==3?'bisque': element['criticality']==2?'aliceblue':'lightyellow'">

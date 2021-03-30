@@ -482,8 +482,21 @@ export class TableComponent {
         const filterValue = (event.target as HTMLInputElement).value;
         this.dataSource.filter = filterValue.trim().toLowerCase();
     }
+
+    freezeArray: any = []
     isSticky(column: string): boolean {
-        return column === 'pkey' ? true : column === 'criticality' ? true : false;
+        let keystatus = false;
+        this.freezeArray.find((key: any) => {
+            if (key == column) {
+                keystatus = true;
+            }
+        })
+        return keystatus;
+    }
+
+
+    columnOpearationFreeze(ev: any) {
+        this.displayedColumns = this.displayedColumns;
     }
 
 }
