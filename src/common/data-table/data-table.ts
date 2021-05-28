@@ -81,10 +81,10 @@ export class TableComponent {
     displayedColumns: any = [];
     dataSource: any = new MatTableDataSource<any>([]);
 
-    @ViewChild(MatPaginator)
+    @ViewChild(MatPaginator, { static: false })
     paginator!: MatPaginator;
 
-    @ViewChild(MatSort)
+    @ViewChild(MatSort, { static: false })
     sort!: MatSort;
 
     ngAfterViewInit() {
